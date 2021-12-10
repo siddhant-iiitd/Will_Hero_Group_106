@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -148,11 +149,6 @@
             <Font name="Rubik Mono One Regular" size="20.0" />
          </font>
       </Text>
-      <ImageView fx:id="pauseBtn" fitHeight="30.0" fitWidth="30.0" layoutX="13.0" layoutY="10.0" onMouseClicked="#pauseGame" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/pause.png" />
-         </image>
-      </ImageView>
       <ImageView fitHeight="60.0" fitWidth="50.0" layoutX="39.0" layoutY="504.0" opacity="0.3" pickOnBounds="true" rotate="45.0">
          <image>
             <Image url="@images/box.png" />
@@ -173,5 +169,35 @@
             <Image url="@assets/WeaponShuriken.png" />
          </image>
       </ImageView>
+      <AnchorPane fx:id="pauseMenu" layoutX="191.0" layoutY="600.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="264.0" prefWidth="337.0" styleClass="pause-pane" stylesheets="@styles.css">
+         <children>
+            <Text fill="WHITE" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PAUSE" textAlignment="CENTER" wrappingWidth="340.5815124511719">
+               <font>
+                  <Font name="Rubik Mono One Regular" size="39.0" />
+               </font>
+            </Text>
+            <ImageView fx:id="play" fitHeight="74.0" fitWidth="81.0" layoutX="140.0" layoutY="86.0" onMouseClicked="#playGame" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/play-xxl.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="save" fitHeight="53.0" fitWidth="53.0" layoutX="186.0" layoutY="188.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/save.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="home" fitHeight="56.0" fitWidth="58.0" layoutX="81.0" layoutY="188.0" onMouseClicked="#goHome" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/home1.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="cross" fitHeight="71.0" fitWidth="29.0" layoutX="13.0" layoutY="12.0" onMouseClicked="#playGame" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/close.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <Button fx:id="pauseBtn" layoutX="12.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#pauseGame" prefHeight="40.0" prefWidth="30.0" styleClass="pause-button" stylesheets="@styles.css" />
    </children>
 </AnchorPane>

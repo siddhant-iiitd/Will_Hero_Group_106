@@ -25,12 +25,19 @@ import java.util.ResourceBundle;
 
 public class RunningGameController implements Initializable {
     @FXML private AnchorPane scenePane;
-    @FXML private ImageView pauseBtn;
+    @FXML private Button pauseBtn;
 
     @FXML private ImageView redOrc1;
     @FXML private ImageView redOrc2;
     @FXML private ImageView greenOrc1;
     @FXML private ImageView hero;
+
+    @FXML private AnchorPane pauseMenu;
+    @FXML private ImageView cross;
+    @FXML private ImageView play;
+    @FXML private ImageView save;
+    @FXML private ImageView home;
+
 
 
     private Stage stage;
@@ -39,11 +46,27 @@ public class RunningGameController implements Initializable {
 
 
     public void pauseGame(MouseEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("Pause_Menu.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        TranslateTransition transition = new TranslateTransition();
+        transition.setNode(pauseMenu);
+        transition.setDuration(Duration.millis(1000));
+        transition.setByY(-434);
+        transition.play();
+    }
+
+    public void goHome(MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("main-menu.fxml"));
+        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void playGame(MouseEvent event) throws IOException {
+        TranslateTransition transition = new TranslateTransition();
+        transition.setNode(pauseMenu);
+        transition.setDuration(Duration.millis(1000));
+        transition.setByY(434);
+        transition.play();
     }
 
     public static TranslateTransition jumping(Node node,  int y, int time) {
