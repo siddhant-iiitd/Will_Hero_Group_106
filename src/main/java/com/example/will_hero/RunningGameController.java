@@ -5,6 +5,7 @@ import javafx.animation.SequentialTransition;
 import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -66,6 +67,19 @@ public class RunningGameController implements Initializable {
         transition.setNode(pauseMenu);
         transition.setDuration(Duration.millis(1000));
         transition.setByY(434);
+        transition.play();
+    }
+
+    public static TranslateTransition forward(Node node, int x, int time) {
+        TranslateTransition transition = new TranslateTransition();
+        transition.setNode(node);
+        transition.setDuration(Duration.millis(time));
+        transition.setByX(x);
+        return transition;
+    }
+
+    public void heroForward(Event event) {
+        TranslateTransition transition = forward(hero, 100, 300);
         transition.play();
     }
 
