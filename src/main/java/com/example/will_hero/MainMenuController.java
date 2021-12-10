@@ -8,6 +8,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -15,20 +17,20 @@ import java.io.IOException;
 
 public class MainMenuController {
     @FXML private AnchorPane scenePane;
-    @FXML private Button newGameButton;
-    @FXML private Button loadGameButton;
-    @FXML private Button exitGameButton;
+    @FXML private ImageView newGameButton;
+    @FXML private ImageView loadGameButton;
+    @FXML private ImageView exitGameButton;
 
     private Stage stage;
     private Scene scene;
     private Parent root;
 
-    public void exitGame(ActionEvent event) {
+    public void exitGame(MouseEvent event) {
         stage = (Stage) scenePane.getScene().getWindow();
         stage.close();
     }
 
-    public void loadGame(ActionEvent event) throws IOException {
+    public void loadGame(MouseEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("load-game-menu.fxml"));
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -36,8 +38,8 @@ public class MainMenuController {
         stage.show();
     }
 
-    public void newGame(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("Game_is_running_here.fxml"));
+    public void newGame(MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("RunningGame.fxml"));
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
