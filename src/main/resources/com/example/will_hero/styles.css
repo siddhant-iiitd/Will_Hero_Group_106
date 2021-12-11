@@ -8,14 +8,9 @@
     src: url("Press_Start_2P/PressStart2P-Regular.ttf");
 }
 
-.coins-text{
-
+.text{
+    -fx-font-face: Rubik Mono One Regular;
 }
-
-.score-text{
-
-}
-
 .pause-pane{
     -fx-background-color: #f3ca4c;
 }

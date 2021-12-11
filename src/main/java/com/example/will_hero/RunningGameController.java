@@ -39,11 +39,33 @@ public class RunningGameController implements Initializable {
     @FXML private ImageView save;
     @FXML private ImageView home;
 
-
+    @FXML private AnchorPane savePane;
+    @FXML private ImageView closeButtonSavePane;
 
     private Stage stage;
     private Scene scene;
     private Parent root;
+
+    public void closeSavePane(MouseEvent event){
+        TranslateTransition transition = new TranslateTransition();
+        transition.setNode(savePane);
+        transition.setDuration(Duration.millis(1000));
+        transition.setByY(386);
+        transition.play();
+    }
+
+    public void openSavePane(MouseEvent event) {
+        TranslateTransition transition = new TranslateTransition();
+        transition.setNode(pauseMenu);
+        transition.setDuration(Duration.millis(1000));
+        transition.setByY(434);
+        transition.play();
+        TranslateTransition transition2 = new TranslateTransition();
+        transition2.setNode(savePane);
+        transition2.setDuration(Duration.millis(1000));
+        transition2.setByY(-386);
+        transition2.play();
+    }
 
 
     public void pauseGame(MouseEvent event) throws IOException {

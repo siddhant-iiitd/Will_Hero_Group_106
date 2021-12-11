@@ -139,14 +139,14 @@
             <Image url="@assets/Coin.png" />
          </image>
       </ImageView>
-      <Text fill="WHITE" fontSmoothingType="LCD" layoutX="-1.0" layoutY="56.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="score-text" text="30" textAlignment="CENTER" wrappingWidth="720.8064575195312">
+      <Text fill="WHITE" fontSmoothingType="LCD" layoutX="-1.0" layoutY="62.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="score-text" text="30" textAlignment="CENTER" wrappingWidth="720.8064575195312">
          <font>
-            <Font name="Rubik Mono One Regular" size="45.0" />
+            <Font name="Press Start 2P Regular" size="45.0" />
          </font>
       </Text>
-      <Text fill="#ffe853" fontSmoothingType="LCD" layoutX="627.0" layoutY="36.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="coins-text" text="104" textAlignment="RIGHT" wrappingWidth="55.275920391082764">
+      <Text fill="#ffe853" fontSmoothingType="LCD" layoutX="615.0" layoutY="39.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="coins-text" text="104" textAlignment="RIGHT" wrappingWidth="64.27592039108276">
          <font>
-            <Font name="Rubik Mono One Regular" size="20.0" />
+            <Font name="Press Start 2P Regular" size="16.0" />
          </font>
       </Text>
       <ImageView fitHeight="60.0" fitWidth="50.0" layoutX="39.0" layoutY="504.0" opacity="0.3" pickOnBounds="true" rotate="45.0">
@@ -171,9 +171,9 @@
       </ImageView>
       <AnchorPane fx:id="pauseMenu" layoutX="191.0" layoutY="600.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="264.0" prefWidth="337.0" styleClass="pause-pane" stylesheets="@styles.css">
          <children>
-            <Text fill="WHITE" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PAUSE" textAlignment="CENTER" wrappingWidth="340.5815124511719">
+            <Text fill="WHITE" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PAUSE" textAlignment="CENTER" wrappingWidth="340.5815124511719">
                <font>
-                  <Font name="Rubik Mono One Regular" size="39.0" />
+                  <Font name="Press Start 2P Regular" size="39.0" />
                </font>
             </Text>
             <ImageView fx:id="play" fitHeight="74.0" fitWidth="81.0" layoutX="140.0" layoutY="86.0" onMouseClicked="#playGame" pickOnBounds="true" preserveRatio="true">
@@ -181,7 +181,7 @@
                   <Image url="@images/play-xxl.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="save" fitHeight="53.0" fitWidth="53.0" layoutX="186.0" layoutY="188.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="save" fitHeight="53.0" fitWidth="53.0" layoutX="186.0" layoutY="188.0" onMouseClicked="#openSavePane" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/save.png" />
                </image>
@@ -203,5 +203,29 @@
             <Font name="Arial" size="13.0" />
          </font>
       </Button>
+      <ImageView fitHeight="135.0" fitWidth="127.0" layoutX="877.0" layoutY="198.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@assets/OrcBoss.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="862.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/platform_small.png" />
+         </image>
+      </ImageView>
+      <AnchorPane fx:id="savePane" layoutX="185.0" layoutY="600.0" prefHeight="135.0" prefWidth="337.0" styleClass="pause-pane">
+         <children>
+            <ImageView fx:id="closeButtonSavePane" fitHeight="71.0" fitWidth="29.0" layoutX="9.0" layoutY="15.0" onMouseClicked="#closeSavePane" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/close.png" />
+               </image>
+            </ImageView>
+            <Text fill="WHITE" layoutX="53.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your progress has been saved" textAlignment="CENTER" wrappingWidth="244.99999999999994">
+               <font>
+                  <Font name="Press Start 2P Regular" size="20.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
