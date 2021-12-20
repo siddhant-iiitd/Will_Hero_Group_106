@@ -11,9 +11,15 @@ public class GameState {
     private ArrayList<GameObjects> gameObjects;
     private ArrayList<Enemies> enemies;
     private ArrayList<Rock> rocks;
-    private int Steps;
+    private ArrayList<TNT> tnts;
+    private ArrayList<Chests> chests;
+    private int steps;
+    private int coins;
+    private boolean hasEnded;
+    private boolean hasRevived;
 
     //FXML Objects
+    private AnchorPane gamePane;
     private Hero hero;
     private Text scoreBoard;
     private Text coinBoard;
@@ -23,5 +29,6 @@ public class GameState {
         this.hero = new Hero(heroNode);
         this.scoreBoard = scoreBoard;
         this.coinBoard = coinBoard;
+        this.gamePane = anchorPane;
     }
 }

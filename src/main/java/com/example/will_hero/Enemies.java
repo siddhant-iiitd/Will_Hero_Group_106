@@ -10,6 +10,8 @@ public abstract class Enemies extends GameObjects {
     public String getPath(){
         return this.getPath();
     }
+
+
 }
 
 class RedOrc extends Enemies {

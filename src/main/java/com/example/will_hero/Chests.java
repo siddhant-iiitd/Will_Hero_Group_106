@@ -1,6 +1,8 @@
 package com.example.will_hero;
 
 public abstract class Chests {
+    public static final String path = "AssetFXMLFiles/Chest.fxml";
+
     public abstract void open();
 }
 
