@@ -34,16 +34,23 @@ public class Game{
 //            e.printStackTrace();
 //        }
         Parent root = null;
+        FXMLLoader fxmlLoader = new FXMLLoader(WillHeroApplication.class.getResource("Game.fxml"));
+
         try {
-            root = FXMLLoader.load(getClass().getResource("Game.fxml"));
+            root = fxmlLoader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        gameController = fxmlLoader.getController();
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+
+    }
+
+    public void setupFXMLNodes(){
+        this.gameController.setupFXMLNodes(this, currentState);
     }
 
     public Game() {
@@ -51,8 +58,10 @@ public class Game{
     }
 
 
-
-    public void startGame(MouseEvent event){
+    public void startGame(MouseEvent event) {
         this.viewScene(event);
+        this.setupFXMLNodes();
+        currentState.addObject();
+        stage.show();
     }
 }

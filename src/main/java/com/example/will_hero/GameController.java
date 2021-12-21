@@ -46,8 +46,12 @@ public class GameController implements Initializable {
     private Stage stage;
     private Scene scene;
 
+    public GameController() {
 
-    public void PauseButtonClicked(MouseEvent Event) {
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 
@@ -55,6 +59,17 @@ public class GameController implements Initializable {
         this.game = game;
         gameState.setupFXMLNodes(gamePane, scoreBoard, coinBoard, hero);
     }
+
+
+
+
+
+
+    public void PauseButtonClicked(MouseEvent Event) {
+
+    }
+
+
     public void closeSavePane(MouseEvent event){
         TranslateTransition transition = new TranslateTransition();
         transition.setNode(savePane);
@@ -131,17 +146,5 @@ public class GameController implements Initializable {
         return  seq;
     }
 
-    public void setup(Game game, GameState state) {
-        this.game = game;
-        state.setupFXMLNodes(gamePane, scoreBoard, coinBoard, hero);
-    }
 
-    public GameController() {
-
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    }
 }

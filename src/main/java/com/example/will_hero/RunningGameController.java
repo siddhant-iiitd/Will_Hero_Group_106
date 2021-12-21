@@ -46,6 +46,38 @@ public class RunningGameController implements Initializable {
     private Scene scene;
     private Parent root;
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        SequentialTransition s1 = jumpWithPause(redOrc1, 80, 510, 200);
+        s1.play();
+
+        SequentialTransition s2 = jumpWithPause(redOrc2, 80, 510, 200);
+        s2.play();
+
+        SequentialTransition s3 = jumpWithPause(greenOrc1, 70, 490, 170);
+        s3.play();
+
+        SequentialTransition s4 = jumpWithPause(hero, 65, 475, 210);
+        s4.play();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public void closeSavePane(MouseEvent event){
         TranslateTransition transition = new TranslateTransition();
         transition.setNode(savePane);
@@ -122,18 +154,5 @@ public class RunningGameController implements Initializable {
         return  seq;
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        SequentialTransition s1 = jumpWithPause(redOrc1, 80, 510, 200);
-        s1.play();
 
-        SequentialTransition s2 = jumpWithPause(redOrc2, 80, 510, 200);
-        s2.play();
-
-        SequentialTransition s3 = jumpWithPause(greenOrc1, 70, 490, 170);
-        s3.play();
-
-        SequentialTransition s4 = jumpWithPause(hero, 65, 475, 210);
-        s4.play();
-    }
 }
