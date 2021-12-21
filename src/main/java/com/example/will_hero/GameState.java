@@ -29,13 +29,8 @@ public class GameState {
     private Text coinBoard;
 
     public void addObject() {
-        AnchorPane root = null;
-        try {
-            root = FXMLLoader.<AnchorPane>load(WillHeroApplication.class.getResource("AssetFXMLFiles/Rock2.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Group rockGroup = (Group) root.getChildren().get(0);
+
+        Group rockGroup = groupLoader(Rock.paths[0]);
         rockGroup.setLayoutX(300);
         rockGroup.setLayoutY(317 - rockGroup.getChildren().get(1).getBoundsInLocal().getHeight());
 
@@ -53,5 +48,26 @@ public class GameState {
         this.scoreBoard = scoreBoard;
         this.coinBoard = coinBoard;
         this.gamePane = anchorPane;
+    }
+
+    public static Group groupLoader(String path) {
+        AnchorPane root = null;
+        try {
+            root = FXMLLoader.<AnchorPane>load(WillHeroApplication.class.getResource(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Group group = (Group) root.getChildren().get(0);
+        return group;
+    }
+    public static ImageView imageViewLoader(String path) {
+        AnchorPane root = null;
+        try {
+            root = FXMLLoader.<AnchorPane>load(WillHeroApplication.class.getResource(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ImageView image = (ImageView) root.getChildren().get(0);
+        return image;
     }
 }
