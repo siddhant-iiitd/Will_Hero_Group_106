@@ -21,18 +21,6 @@ public class Game{
     private Scene scene;
 
     public void viewScene(MouseEvent event) {
-//        try{
-//            FXMLLoader loader = new FXMLLoader(WillHeroApplication.class.getResource("Game.fxml"));
-//            System.out.println("here1");
-//            scene = new Scene(loader.load());
-//            System.out.println("here2");
-//            stage.setScene(scene);
-//            System.out.println("here3");
-//            gameController = loader.getController();
-//            System.out.println("here4");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
         Parent root = null;
         FXMLLoader fxmlLoader = new FXMLLoader(WillHeroApplication.class.getResource("Game.fxml"));
 
@@ -61,7 +49,12 @@ public class Game{
     public void startGame(MouseEvent event) {
         this.viewScene(event);
         this.setupFXMLNodes();
-        currentState.addObject();
-        stage.show();
+
+        //adding the first island
+        Island first = Island.createIsland(Island.paths[0]);
+        currentState.addIsland(first);
+        for (int i = 0; i < 5; i++) {
+            currentState.addIsland();
+        }
     }
 }

@@ -9,18 +9,22 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class GameState {
 
-    private ArrayList<GameObjects> gameObjects;
-    private ArrayList<Enemies> enemies;
-    private ArrayList<Rock> rocks;
-    private ArrayList<TNT> tnts;
-    private ArrayList<Chests> chests;
+    Random rand = new Random();
+
+    private ArrayList<GameObjects> gameObjects = new ArrayList<>();
+    private ArrayList<Enemies> enemies = new ArrayList<>();
+    private ArrayList<Island> islands = new ArrayList<>();
+    private ArrayList<TNT> tnts = new ArrayList<>();
+    private ArrayList<Chests> chests = new ArrayList<>();
     private int steps;
     private int coins;
     private boolean hasEnded;
     private boolean hasRevived;
+
 
     //FXML Objects
     private AnchorPane gamePane;
@@ -30,9 +34,9 @@ public class GameState {
 
     public void addObject() {
 
-        Group rockGroup = groupLoader(Rock.paths[0]);
-        rockGroup.setLayoutX(300);
-        rockGroup.setLayoutY(317 - rockGroup.getChildren().get(1).getBoundsInLocal().getHeight());
+        Group islandGroup = groupLoader(Island.paths[0]);
+        islandGroup.setLayoutX(300);
+        islandGroup.setLayoutY(317 - islandGroup.getChildren().get(1).getBoundsInLocal().getHeight());
 
         Text t1 = new Text();
         t1.setText("Hello");
@@ -40,8 +44,31 @@ public class GameState {
         t1.setX(100);
         t1.setY(100);
         gamePane.getChildren().add(t1);
-        gamePane.getChildren().add(rockGroup);
+        gamePane.getChildren().add(islandGroup);
     }
+
+    public void addIsland(Island island) {
+        island.getNode().setLayoutY(170 - rand.nextInt(30));
+        if (islands.size() < 1) {
+            island.getNode().setLayoutX(5);
+        }
+        else {
+            Island prevIsland = islands.get(islands.size() -1 );
+            island.getNode().setLayoutX(prevIsland.getNode().getLayoutX() + rand.nextInt(100) + 75 + prevIsland.WIDTH);
+        }
+        islands.add(island);
+
+        gamePane.getChildren().add(island.getNode());
+        if (islands.size() > 6) {
+            Island removedIsland = islands.remove(0);
+            gamePane.getChildren().remove(removedIsland.getNode());
+        }
+    }
+    public void addIsland(){
+        addIsland(Island.createIsland());
+    }
+
+
 
     public void setupFXMLNodes(AnchorPane anchorPane, Text scoreBoard, Text coinBoard, ImageView heroNode) {
         this.hero = new Hero(heroNode);

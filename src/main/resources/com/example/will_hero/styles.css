@@ -1,11 +1,11 @@
 @font-face {
     font-family: RubikMonoOne;
-    src: url("Rubik_Mono_One/RubikMonoone-Regular.ttf");
+    src: url("fonts/Rubik_Mono_One/RubikMonoone-Regular.ttf");
 }
 
 @font-face {
     font-family: Press_Start_2P;
-    src: url("Press_Start_2P/PressStart2P-Regular.ttf");
+    src: url("fonts/Press_Start_2P/PressStart2P-Regular.ttf");
 }
 
 .text{
