@@ -59,10 +59,7 @@ public class GameController implements Initializable {
         this.game = game;
         gameState.setupFXMLNodes(gamePane, scoreBoard, coinBoard, hero);
     }
-
-
-
-
+    
 
 
     public void PauseButtonClicked(MouseEvent Event) {

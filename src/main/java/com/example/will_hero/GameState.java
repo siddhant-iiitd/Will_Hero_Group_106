@@ -1,7 +1,9 @@
 package com.example.will_hero;
 
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Bounds;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class GameState {
+    private final Game game;
 
     Random rand = new Random();
 
@@ -27,10 +30,18 @@ public class GameState {
 
 
     //FXML Objects
-    private AnchorPane gamePane;
+    protected static AnchorPane gamePane;
     private Hero hero;
     private Text scoreBoard;
     private Text coinBoard;
+
+    public GameState(Game game) {
+        this.game = game;
+    }
+
+    public static Bounds getBoundswrtPane(Node node) {
+        return gamePane.sceneToLocal(node.localToScene(node.getBoundsInLocal()));
+    }
 
     public void addObject() {
 
@@ -47,6 +58,8 @@ public class GameState {
         gamePane.getChildren().add(islandGroup);
     }
 
+
+
     public void addIsland(Island island) {
         island.getNode().setLayoutY(170 - rand.nextInt(30));
         if (islands.size() < 1) {
@@ -59,15 +72,32 @@ public class GameState {
         islands.add(island);
 
         gamePane.getChildren().add(island.getNode());
-        if (islands.size() > 6) {
-            Island removedIsland = islands.remove(0);
-            gamePane.getChildren().remove(removedIsland.getNode());
+        if (islands.size() > 7) {
+
+            Island removedIsland = islands.get(0);
+            this.removeObject(removedIsland);
         }
     }
     public void addIsland(){
         addIsland(Island.createIsland());
     }
 
+    public void removeObject(GameObjects object){
+        gamePane.getChildren().remove(object.getNode());
+        if (object instanceof Enemies) {
+            enemies.remove(object);
+        }
+        else if (object instanceof Island) {
+            islands.remove(object);
+        }
+        else if (object instanceof Chests) {
+            chests.remove(object);
+        }
+        else if (object instanceof TNT) {
+            tnts.remove(tnts);
+        }
+        gameObjects.remove(object);
+    }
 
 
     public void setupFXMLNodes(AnchorPane anchorPane, Text scoreBoard, Text coinBoard, ImageView heroNode) {
@@ -75,6 +105,7 @@ public class GameState {
         this.scoreBoard = scoreBoard;
         this.coinBoard = coinBoard;
         this.gamePane = anchorPane;
+        game.hero = new Hero(heroNode);
     }
 
     public static Group groupLoader(String path) {

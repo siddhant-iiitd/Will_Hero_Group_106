@@ -1,6 +1,7 @@
 package com.example.will_hero;
 
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -15,7 +16,7 @@ public class Game{
     private GameState currentState;
 
 
-    private Hero hero;
+    public Hero hero;
 
     private Stage stage;
     private Scene scene;
@@ -42,7 +43,7 @@ public class Game{
     }
 
     public Game() {
-        currentState = new GameState();
+        currentState = new GameState(this);
     }
 
 
@@ -56,5 +57,28 @@ public class Game{
         for (int i = 0; i < 5; i++) {
             currentState.addIsland();
         }
+
+        Bounds heroBounds = GameState.getBoundswrtPane(hero.getNode());
+        System.out.println("hero bounds");
+        printBounds(heroBounds);
+        System.out.println("island bounds");
+
+        Bounds islandBounds = GameState.getBoundswrtPane(first.getPlatformNode());
+
+        printBounds(islandBounds);
+
+        System.out.println(heroBounds.intersects(islandBounds));
+
+    }
+
+    public static void printBounds(Bounds heroBounds) {
+        System.out.println("height " + heroBounds.getHeight());
+        System.out.println("widht " + heroBounds.getWidth());
+        System.out.println("center x " + heroBounds.getCenterX());
+        System.out.println("center y" + heroBounds.getCenterY());
+        System.out.println("max x " + heroBounds.getMaxX());
+        System.out.println("max y" + heroBounds.getMaxY());
+        System.out.println("min x" + heroBounds.getMinX());
+        System.out.println("min y" + heroBounds.getMinY());
     }
 }
