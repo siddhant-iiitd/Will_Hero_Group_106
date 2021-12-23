@@ -45,9 +45,17 @@ public class Island extends GameObjects {
         return island;
     }
 
-
+    //checking if hero is colliding with island from above. We don't check from sides because
+    // in that case we want it to just fall down into the abyss
     @Override
     public Boolean isColliding(Hero hero) {
-        return null;
+        Bounds heroBounds = GameState.getBoundswrtPane(hero.getNode());
+        Bounds platformBounds = GameState.getBoundswrtPane(platformNode);
+        if (heroBounds.intersects(platformBounds)) {
+            if ((heroBounds.getMaxY() >= platformBounds.getMinY()) && (heroBounds.getMinY() <= platformBounds.getMinY() - hero.HEIGHT + 2)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

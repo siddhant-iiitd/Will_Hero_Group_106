@@ -57,22 +57,40 @@ public class Game{
         //adding the first island
         Island first = Island.createIsland(Island.paths[0]);
         currentState.addIsland(first);
+//        Bounds heroBounds = GameState.getBoundswrtPane(hero.getNode());
+//        System.out.println("hero bounds");
+//        printBounds(heroBounds);
+//        System.out.println("first island bounds");
+//        Bounds islandBounds = GameState.getBoundswrtPane(first.getPlatformNode());
+//        printBounds(islandBounds);
+
+        for (int i = 0; i < 5; i++) {
+            Island is = currentState.addIsland();
+//            System.out.println("bounds for island " + i);
+//            Bounds b = GameState.getBoundswrtPane(is.getPlatformNode());
+//            printBounds(b);
+        }
+
         Bounds heroBounds = GameState.getBoundswrtPane(hero.getNode());
         System.out.println("hero bounds");
         printBounds(heroBounds);
         System.out.println("first island bounds");
         Bounds islandBounds = GameState.getBoundswrtPane(first.getPlatformNode());
         printBounds(islandBounds);
+        System.out.println(heroBounds.intersects(islandBounds));
+        System.out.println(first.getPlatformNode().getClass());
 
-        for (int i = 0; i < 5; i++) {
-            Island is = currentState.addIsland();
-            System.out.println("bounds for island " + i);
-            Bounds b = GameState.getBoundswrtPane(is.getPlatformNode());
-            printBounds(b);
+
+        if (first.isColliding(hero)) {
+            System.out.println("jump");
+        }
+        else {
+            System.out.println("no jump");
+
         }
 
 
-        System.out.println(heroBounds.intersects(islandBounds));
+
 
     }
 
