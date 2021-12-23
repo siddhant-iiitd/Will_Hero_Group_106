@@ -80,11 +80,6 @@
                   <Image url="@assets/Coin.png" />
                </image>
             </ImageView>
-            <Button fx:id="pauseBtn" layoutX="19.0" layoutY="11.0" mnemonicParsing="false" onMouseClicked="#pauseGame" prefHeight="40.0" prefWidth="30.0" styleClass="pause-button" stylesheets="@styles.css">
-               <font>
-                  <Font name="Arial" size="13.0" />
-               </font>
-            </Button>
             <Text fx:id="coinBoard" fill="#ffe853" fontSmoothingType="LCD" layoutX="617.0" layoutY="39.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="coins-text" text="0" textAlignment="RIGHT" wrappingWidth="64.27592039108276">
                <font>
                   <Font name="Press Start 2P Regular" size="16.0" />
@@ -95,6 +90,11 @@
                   <Font name="Press Start 2P Regular" size="45.0" />
                </font>
             </Text>
+            <Button fx:id="pauseBtn" layoutX="19.0" layoutY="11.0" mnemonicParsing="false" onMouseClicked="#pauseGame" prefHeight="40.0" prefWidth="30.0" styleClass="pause-button" stylesheets="@styles.css">
+               <font>
+                  <Font name="Arial" size="13.0" />
+               </font>
+            </Button>
          </children>
       </Group>
       <AnchorPane fx:id="pauseMenu" layoutX="191.0" layoutY="600.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="264.0" prefWidth="337.0" styleClass="pause-pane" stylesheets="@styles.css">
