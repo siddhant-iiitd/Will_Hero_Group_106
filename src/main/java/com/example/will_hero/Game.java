@@ -21,6 +21,11 @@ public class Game{
     private Stage stage;
     private Scene scene;
 
+    public Game() {
+        currentState = new GameState(this);
+    }
+
+    //helper function to view the game scene
     public void viewScene(MouseEvent event) {
         Parent root = null;
         FXMLLoader fxmlLoader = new FXMLLoader(WillHeroApplication.class.getResource("Game.fxml"));
@@ -35,18 +40,16 @@ public class Game{
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-
     }
 
+    //helper function to setup fxml nodes from the fxml file
     public void setupFXMLNodes(){
         this.gameController.setupFXMLNodes(this, currentState);
     }
 
-    public Game() {
-        currentState = new GameState(this);
-    }
 
 
+    // function executed on starting a game
     public void startGame(MouseEvent event) {
         this.viewScene(event);
         this.setupFXMLNodes();
@@ -54,24 +57,27 @@ public class Game{
         //adding the first island
         Island first = Island.createIsland(Island.paths[0]);
         currentState.addIsland(first);
-        for (int i = 0; i < 5; i++) {
-            currentState.addIsland();
-        }
-
         Bounds heroBounds = GameState.getBoundswrtPane(hero.getNode());
         System.out.println("hero bounds");
         printBounds(heroBounds);
-        System.out.println("island bounds");
-
+        System.out.println("first island bounds");
         Bounds islandBounds = GameState.getBoundswrtPane(first.getPlatformNode());
-
         printBounds(islandBounds);
+
+        for (int i = 0; i < 5; i++) {
+            Island is = currentState.addIsland();
+            System.out.println("bounds for island " + i);
+            Bounds b = GameState.getBoundswrtPane(is.getPlatformNode());
+            printBounds(b);
+        }
+
 
         System.out.println(heroBounds.intersects(islandBounds));
 
     }
 
-    public static void printBounds(Bounds heroBounds) {
+    //function to print the bounds mainly for debugging
+    private static void printBounds(Bounds heroBounds) {
         System.out.println("height " + heroBounds.getHeight());
         System.out.println("widht " + heroBounds.getWidth());
         System.out.println("center x " + heroBounds.getCenterX());

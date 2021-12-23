@@ -43,24 +43,14 @@ public class GameState {
         return gamePane.sceneToLocal(node.localToScene(node.getBoundsInLocal()));
     }
 
-    public void addObject() {
-
-        Group islandGroup = groupLoader(Island.paths[0]);
-        islandGroup.setLayoutX(300);
-        islandGroup.setLayoutY(317 - islandGroup.getChildren().get(1).getBoundsInLocal().getHeight());
-
-        Text t1 = new Text();
-        t1.setText("Hello");
-        t1.setFont(Font.font("Arial"));
-        t1.setX(100);
-        t1.setY(100);
-        gamePane.getChildren().add(t1);
-        gamePane.getChildren().add(islandGroup);
+    //Helper function to add the object to the gameObjects list too. Must call this function whenever
+    //adding any object such as island to the specific lists
+    private void addGameObject(GameObjects object){
+        gameObjects.add(object);
     }
 
-
-
-    public void addIsland(Island island) {
+    //function to add a given island to the islands list
+    public Island addIsland(Island island) {
         island.getNode().setLayoutY(170 - rand.nextInt(30));
         if (islands.size() < 1) {
             island.getNode().setLayoutX(5);
@@ -77,11 +67,16 @@ public class GameState {
             Island removedIsland = islands.get(0);
             this.removeObject(removedIsland);
         }
-    }
-    public void addIsland(){
-        addIsland(Island.createIsland());
+        addGameObject(island);
+        return island;
     }
 
+    //function to add random new island to islands list
+    public Island addIsland(){
+        return addIsland(Island.createIsland());
+    }
+
+    //function to remove a gameObject from all lists containing that object
     public void removeObject(GameObjects object){
         gamePane.getChildren().remove(object.getNode());
         if (object instanceof Enemies) {
@@ -100,6 +95,7 @@ public class GameState {
     }
 
 
+    //function for initial setup of some required static gui component nodes
     public void setupFXMLNodes(AnchorPane anchorPane, Text scoreBoard, Text coinBoard, ImageView heroNode) {
         this.hero = new Hero(heroNode);
         this.scoreBoard = scoreBoard;
@@ -108,6 +104,7 @@ public class GameState {
         game.hero = new Hero(heroNode);
     }
 
+    //helper static function to load a group from fxml file with given path
     public static Group groupLoader(String path) {
         AnchorPane root = null;
         try {
@@ -118,6 +115,8 @@ public class GameState {
         Group group = (Group) root.getChildren().get(0);
         return group;
     }
+
+    //helper function to load imageview from fxml file with given path
     public static ImageView imageViewLoader(String path) {
         AnchorPane root = null;
         try {

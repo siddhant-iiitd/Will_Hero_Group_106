@@ -31,12 +31,14 @@ public class Island extends GameObjects {
         return this.platformNode;
     }
 
+    //helper static function to create a new random island
     public static Island createIsland(){
         Random rand = new Random();
         String path = Island.paths[rand.nextInt(5)];
         return createIsland(path);
     }
 
+    //helper static funciton to create a new island with given path
     public static Island createIsland(String path) {
         Group islandNode = GameState.groupLoader(path);
         Island island = new Island(islandNode);
