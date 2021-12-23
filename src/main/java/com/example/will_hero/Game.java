@@ -54,6 +54,7 @@ public class Game{
     public void startGame(MouseEvent event) {
         this.viewScene(event);
         this.setupFXMLNodes();
+        currentState.enableForward();
 
         //adding the first island
         Island first = Island.createIsland(Island.paths[0]);
@@ -75,26 +76,13 @@ public class Game{
 //            printBounds(b);
         }
 
-        Bounds heroBounds = GameState.getBoundswrtPane(hero.getNode());
-        System.out.println("hero bounds");
-        printBounds(heroBounds);
-        System.out.println("first island bounds");
-        Bounds islandBounds = GameState.getBoundswrtPane(first.getPlatformNode());
-        printBounds(islandBounds);
-        System.out.println(heroBounds.intersects(islandBounds));
-        System.out.println(first.getPlatformNode().getClass());
-
-
         if (first.isColliding(hero)) {
-            System.out.println("jump");
+            hero.jump();
         }
         else {
             System.out.println("no jump");
 
         }
-
-       // currentState.moveSceneBackwards(100, 300);
-
 
 
     }

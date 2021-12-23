@@ -131,9 +131,17 @@ public class GameState {
         this.scoreBoard = scoreBoard;
         this.coinBoard = coinBoard;
         this.gamePane = anchorPane;
-
     }
 
+    public void enableForward(){
+        gamePane.setOnMouseClicked(event -> {
+            TranslateTransition t1 = hero.moveForward();
+            t1.setOnFinished(actionEvent -> {
+                moveSceneBackwards(100, 200);
+            });
+            t1.play();
+        });
+    }
     //helper static function to load a group from fxml file with given path
     public static Group groupLoader(String path) {
         AnchorPane root = null;
