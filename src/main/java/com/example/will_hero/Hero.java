@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Hero extends GameObjects{
     public static final String path = "AssetFXMLFiles/Hero.fxml";
-    private final int jumpX = 70;
+    private final int jumpX = 100;
     private final int jumpTIme = 200;
     private final Helmet helmet;
 

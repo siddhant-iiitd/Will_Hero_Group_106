@@ -26,7 +26,6 @@ import java.util.ResourceBundle;
 public class GameController implements Initializable {
     private Game game;
     @FXML private AnchorPane gamePane;
-    @FXML private ImageView hero;
     @FXML private Text scoreBoard;
     @FXML private Text coinBoard;
     @FXML private Button pauseBtn;
@@ -57,9 +56,9 @@ public class GameController implements Initializable {
 
     public void setupFXMLNodes(Game game, GameState gameState){
         this.game = game;
-        gameState.setupFXMLNodes(gamePane, scoreBoard, coinBoard, hero);
+        gameState.setupFXMLNodes(gamePane, scoreBoard, coinBoard);
     }
-    
+
 
 
     public void PauseButtonClicked(MouseEvent Event) {
@@ -120,11 +119,11 @@ public class GameController implements Initializable {
         transition.setByX(x);
         return transition;
     }
-
-    public void heroForward(Event event) {
-        TranslateTransition transition = forward(hero, 100, 300);
-        transition.play();
-    }
+//
+//    public void heroForward(Event event) {
+//        TranslateTransition transition = forward(hero, 100, 300);
+//        transition.play();
+//    }
 
     public static TranslateTransition jumping(Node node,  int y, int time) {
 

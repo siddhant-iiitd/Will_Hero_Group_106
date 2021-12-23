@@ -1,5 +1,6 @@
 package com.example.will_hero;
 
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
@@ -8,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,6 +40,23 @@ public class GameState {
     public GameState(Game game) {
         this.game = game;
     }
+
+    public Hero addHero(){
+        ImageView heroNode = imageViewLoader(Hero.path);
+        Hero h = new Hero(heroNode);
+        gamePane.getChildren().add(heroNode);
+        gameObjects.add(h);
+        hero = h;
+        return h;
+    }
+
+    public void setHero(Hero hero) {
+        this.hero = hero;
+    }
+    public Hero getHero() {
+        return this.hero;
+    }
+
 
     // helper function to get the bounds of any node with respect to the scene pane
     public static Bounds getBoundswrtPane(Node node) {
@@ -95,14 +114,24 @@ public class GameState {
         gameObjects.remove(object);
     }
 
+    //function for moving all objects in the game backwards by x in time t
+    public void moveSceneBackwards(double x, double t){
+        for (GameObjects object : gameObjects) {
+            Node node = object.getNode();
+            TranslateTransition transition = new TranslateTransition(Duration.millis(t), node);
+            transition.setByX(-x);
+            transition.play();
+        }
+    }
+
 
     //function for initial setup of some required static gui component nodes
-    public void setupFXMLNodes(AnchorPane anchorPane, Text scoreBoard, Text coinBoard, ImageView heroNode) {
-        this.hero = new Hero(heroNode);
+    public void setupFXMLNodes(AnchorPane anchorPane, Text scoreBoard, Text coinBoard) {
+
         this.scoreBoard = scoreBoard;
         this.coinBoard = coinBoard;
         this.gamePane = anchorPane;
-        game.hero = new Hero(heroNode);
+
     }
 
     //helper static function to load a group from fxml file with given path

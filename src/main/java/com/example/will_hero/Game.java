@@ -45,6 +45,7 @@ public class Game{
     //helper function to setup fxml nodes from the fxml file
     public void setupFXMLNodes(){
         this.gameController.setupFXMLNodes(this, currentState);
+        this.hero = currentState.addHero();
     }
 
 
@@ -57,6 +58,9 @@ public class Game{
         //adding the first island
         Island first = Island.createIsland(Island.paths[0]);
         currentState.addIsland(first);
+        hero.getNode().setLayoutX(215);
+        hero.getNode().setLayoutY(GameState.getBoundswrtPane(first.getPlatformNode()).getMinY() - hero.HEIGHT);
+        hero.getNode().toFront();
 //        Bounds heroBounds = GameState.getBoundswrtPane(hero.getNode());
 //        System.out.println("hero bounds");
 //        printBounds(heroBounds);
@@ -89,6 +93,7 @@ public class Game{
 
         }
 
+       // currentState.moveSceneBackwards(100, 300);
 
 
 
