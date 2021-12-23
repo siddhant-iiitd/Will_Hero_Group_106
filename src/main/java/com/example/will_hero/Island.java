@@ -38,7 +38,7 @@ public class Island extends GameObjects {
         return createIsland(path);
     }
 
-    //helper static funciton to create a new island with given path
+    //helper static function to create a new island with given path
     public static Island createIsland(String path) {
         Group islandNode = GameState.groupLoader(path);
         Island island = new Island(islandNode);

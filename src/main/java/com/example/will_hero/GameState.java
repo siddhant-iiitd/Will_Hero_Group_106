@@ -39,6 +39,7 @@ public class GameState {
         this.game = game;
     }
 
+    // helper function to get the bounds of any node with respect to the scene pane
     public static Bounds getBoundswrtPane(Node node) {
         return gamePane.sceneToLocal(node.localToScene(node.getBoundsInLocal()));
     }
