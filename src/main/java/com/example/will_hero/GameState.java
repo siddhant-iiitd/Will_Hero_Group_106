@@ -62,6 +62,7 @@ public class GameState {
         if (checkCollisionWithIslands()){
             hero.jump();
         }
+        hero.moveFrameWise();
     }
 
     //checking if hero is on any of the islands

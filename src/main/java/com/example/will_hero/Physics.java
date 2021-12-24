@@ -1,7 +1,7 @@
 package com.example.will_hero;
 
 public class Physics {
-    private static double gravity = -9.8;
+    public static double gravity = -((double) 2/15);
 
     // CONVENTION FOR UNITS
     // HEIGHT = PIXELS
