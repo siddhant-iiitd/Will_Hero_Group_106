@@ -13,12 +13,14 @@ public class Hero extends GameObjects{
     private final int forwardX = 100;
     private final int forwardTime = 200;
 
+
     private final Helmet helmet;
 
     public Hero(Node node) {
         super(node);
         helmet = new Helmet();
     }
+
 
     public void jump() {
         TranslateTransition transition = new TranslateTransition();
