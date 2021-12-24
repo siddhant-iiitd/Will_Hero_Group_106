@@ -30,6 +30,8 @@ public class GameState {
     private boolean hasEnded;
     private boolean hasRevived;
 
+    private long lastClicked = 0;
+    private double toMoveFrameX = 0;
 
     //FXML Objects
     protected static AnchorPane gamePane;
@@ -59,10 +61,44 @@ public class GameState {
 
     // method which runs for each frame in animation timer
     public void updateState(long now) {
+        System.out.println(now);
+        gamePane.setOnMouseClicked(event -> {
+            hero.setToMoveX(hero.getToMoveX() + 90);
+            toMoveFrameX += 90;
+            this.lastClicked = now;
+//            TranslateTransition t1 = hero.moveForward();
+//            t1.setOnFinished(actionEvent -> {
+//                moveSceneBackwards(100, 200);
+//            });
+//            t1.play();
+        });
+
+
+        hero.node.toFront();
         if (checkCollisionWithIslands()){
             hero.jump();
         }
+
+        moveFrameBack(now, 6);
         hero.moveFrameWise();
+
+        //movement of the frame
+
+        for (Enemies e : enemies) {
+            //add the jumping thing
+        }
+    }
+
+    public void moveFrameBack(long now, double x){
+        if (!(toMoveFrameX > 100 || (now - lastClicked > 200000000))) {
+            return;
+        }
+        double toMove = (x < toMoveFrameX) ? x : toMoveFrameX;
+        toMoveFrameX -= toMove;
+        for (GameObjects object : gameObjects) {
+            Node node = object.getNode();
+            node.setLayoutX(node.getLayoutX() - toMove);
+        }
     }
 
     //checking if hero is on any of the islands
@@ -152,11 +188,14 @@ public class GameState {
 
     public void enableForward(){
         gamePane.setOnMouseClicked(event -> {
-            TranslateTransition t1 = hero.moveForward();
-            t1.setOnFinished(actionEvent -> {
-                moveSceneBackwards(100, 200);
-            });
-            t1.play();
+            hero.setToMoveX(hero.getToMoveX() + 100);
+            toMoveFrameX += 100;
+
+//            TranslateTransition t1 = hero.moveForward();
+//            t1.setOnFinished(actionEvent -> {
+//                moveSceneBackwards(100, 200);
+//            });
+//            t1.play();
         });
     }
     //helper static function to load a group from fxml file with given path

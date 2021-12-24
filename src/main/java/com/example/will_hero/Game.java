@@ -56,7 +56,7 @@ public class Game{
     public void startGame(MouseEvent event) {
         this.viewScene(event);
         this.setupFXMLNodes();
-        currentState.enableForward();
+        //currentState.enableForward();
 
         //adding the first island
         Island first = Island.createIsland(Island.paths[0]);

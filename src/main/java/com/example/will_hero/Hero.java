@@ -14,7 +14,9 @@ public class Hero extends GameObjects{
     private final int forwardTime = 200;
 
     volatile private double speedY = 0;
-    volatile private double speedX = 0;
+    volatile private double speedX = 6;
+
+    volatile private double toMoveX = 0;
 
     private final Helmet helmet;
 
@@ -23,33 +25,27 @@ public class Hero extends GameObjects{
         helmet = new Helmet();
     }
 
+    public double getToMoveX(){
+        return toMoveX;
+    }
+
+    public void setToMoveX(double toMoveX) {
+        this.toMoveX = toMoveX;
+    }
+
     // vertical movement to be called for each frame
     public void moveFrameWise(){
+        double moveX = (speedX < toMoveX) ? speedX : toMoveX;
+        toMoveX -= moveX;
+        node.setLayoutX(node.getLayoutX() + moveX);
         double displacement = -Physics.dispGravSecond(this.speedY);
         double finalSpeed = Physics.velocityChangeDownwards(this.speedY);
-//        node.setTranslateY(displacement * 10);
-//        System.out.println("moving frame current speed " + this.speedY + " displacement: " + displacement + " final speed: " + finalSpeed);
-//        System.out.println("current y position: " + node.getBoundsInParent().getMaxY());
-//        this.speedY = finalSpeed;
-        System.out.println("speed before" + this.speedY + " y position before " + node.getBoundsInParent().getMaxY());
         node.setLayoutY(node.getLayoutY() + displacement);
-
-        //this.speedY = this.speedY + Physics.gravity;
         this.speedY = finalSpeed;
-        System.out.println("speed now " + this.speedY + " y position after " + node.getBoundsInParent().getMaxY());
     }
 
     public void jump() {
-        System.out.println("collision happened and set new speed");
-        this.speedY = 5;
-        System.out.println("current speed " + this.speedY);
-//        TranslateTransition transition = new TranslateTransition();
-//        transition.setNode(node);
-//        transition.setDuration(Duration.millis(this.jumpTIme));
-//        transition.setByY(-this.jumpY);
-//        transition.setAutoReverse(true);
-//        transition.setCycleCount(2);
-//        transition.play();
+        this.speedY = 5.0;
     }
 
     public TranslateTransition moveForward() {
