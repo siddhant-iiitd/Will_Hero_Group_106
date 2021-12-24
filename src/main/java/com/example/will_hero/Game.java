@@ -50,8 +50,6 @@ public class Game{
         this.hero = currentState.addHero();
     }
 
-
-
     // function executed on starting a game
     public void startGame(MouseEvent event) {
         this.viewScene(event);
@@ -64,30 +62,12 @@ public class Game{
         hero.getNode().setLayoutX(215);
         hero.getNode().setLayoutY(GameState.getBoundswrtPane(first.getPlatformNode()).getMinY() - hero.HEIGHT);
         hero.getNode().toFront();
-//        Bounds heroBounds = GameState.getBoundswrtPane(hero.getNode());
-//        System.out.println("hero bounds");
-//        printBounds(heroBounds);
-//        System.out.println("first island bounds");
-//        Bounds islandBounds = GameState.getBoundswrtPane(first.getPlatformNode());
-//        printBounds(islandBounds);
 
         for (int i = 0; i < 5; i++) {
             Island is = currentState.addIsland();
-//            System.out.println("bounds for island " + i);
-//            Bounds b = GameState.getBoundswrtPane(is.getPlatformNode());
-//            printBounds(b);
         }
 
-//        if (first.isColliding(hero)) {
-//            hero.jump();
-//        }
-//        else {
-//            System.out.println("no jump");
-//
-//        }
-
         animationTimer.start();
-
 
     }
 

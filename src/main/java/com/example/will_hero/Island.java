@@ -52,7 +52,7 @@ public class Island extends GameObjects {
         Bounds heroBounds = GameState.getBoundswrtPane(hero.getNode());
         Bounds platformBounds = GameState.getBoundswrtPane(platformNode);
         if (heroBounds.intersects(platformBounds)) {
-            if ((heroBounds.getMaxY() >= platformBounds.getMinY()) && (heroBounds.getMinY() <= platformBounds.getMinY() - hero.HEIGHT + 5.5)) {
+            if ((heroBounds.getMaxY() >= platformBounds.getMinY()) && (heroBounds.getMinY() <= platformBounds.getMinY() - hero.HEIGHT + hero.getSpeedX() + 0.5)) {
                 return true;
             }
         }

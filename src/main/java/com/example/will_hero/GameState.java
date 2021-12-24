@@ -25,8 +25,8 @@ public class GameState {
     private ArrayList<Island> islands = new ArrayList<>();
     private ArrayList<TNT> tnts = new ArrayList<>();
     private ArrayList<Chests> chests = new ArrayList<>();
-    private int steps;
-    private int coins;
+    private int steps = 0;
+    private int coins = 0;
     private boolean hasEnded;
     private boolean hasRevived;
 
@@ -62,10 +62,14 @@ public class GameState {
     // method which runs for each frame in animation timer
     public void updateState(long now) {
         System.out.println(now);
+        updateScoreBoard();
+        updateCoinBoard();
+
         gamePane.setOnMouseClicked(event -> {
-            hero.setToMoveX(hero.getToMoveX() + 90);
-            toMoveFrameX += 90;
+            hero.setToMoveX(hero.getToMoveX() + 120);
+            toMoveFrameX += 120;
             this.lastClicked = now;
+            this.steps += 1;
 //            TranslateTransition t1 = hero.moveForward();
 //            t1.setOnFinished(actionEvent -> {
 //                moveSceneBackwards(100, 200);
@@ -79,7 +83,7 @@ public class GameState {
             hero.jump();
         }
 
-        moveFrameBack(now, 6);
+        moveFrameBack(now, 8);
         hero.moveFrameWise();
 
         //movement of the frame
@@ -89,8 +93,16 @@ public class GameState {
         }
     }
 
+    public void updateCoinBoard(){
+        coinBoard.setText(String.valueOf(coins));
+    }
+
+    public void updateScoreBoard(){
+        scoreBoard.setText(String.valueOf(steps));
+    }
+
     public void moveFrameBack(long now, double x){
-        if (!(toMoveFrameX > 100 || (now - lastClicked > 200000000))) {
+        if (!(toMoveFrameX > 120 || (now - lastClicked > 150000000))) {
             return;
         }
         double toMove = (x < toMoveFrameX) ? x : toMoveFrameX;

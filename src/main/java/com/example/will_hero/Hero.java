@@ -14,7 +14,7 @@ public class Hero extends GameObjects{
     private final int forwardTime = 200;
 
     volatile private double speedY = 0;
-    volatile private double speedX = 6;
+    volatile private double speedX = 8;
 
     volatile private double toMoveX = 0;
 
@@ -23,6 +23,14 @@ public class Hero extends GameObjects{
     public Hero(Node node) {
         super(node);
         helmet = new Helmet();
+    }
+
+    public double getSpeedY(){
+        return this.speedY;
+    }
+
+    public double getSpeedX() {
+        return speedX;
     }
 
     public double getToMoveX(){
