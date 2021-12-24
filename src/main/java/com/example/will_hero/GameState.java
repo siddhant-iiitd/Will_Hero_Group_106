@@ -31,7 +31,7 @@ public class GameState {
     private boolean hasRevived;
 
     private long lastClicked = 0;
-    private double toMoveFrameX = 0;
+    public double toMoveFrameX = 0;
 
     //FXML Objects
     protected static AnchorPane gamePane;
@@ -45,7 +45,7 @@ public class GameState {
 
     public Hero addHero(){
         ImageView heroNode = imageViewLoader(Hero.path);
-        Hero h = new Hero(heroNode);
+        Hero h = new Hero(heroNode, this.game);
         gamePane.getChildren().add(heroNode);
         gameObjects.add(h);
         hero = h;
@@ -59,6 +59,15 @@ public class GameState {
         return this.hero;
     }
 
+    public Enemies addEnemy(){
+        ImageView enemyNode = imageViewLoader(RedOrc.path);
+        RedOrc e = new RedOrc(enemyNode);
+        gamePane.getChildren().add(enemyNode);
+        enemies.add(e);
+        addGameObject(e);
+        return e;
+    }
+
     // method which runs for each frame in animation timer
     public void updateState(long now) {
 //        System.out.println(now);
@@ -70,24 +79,27 @@ public class GameState {
             toMoveFrameX += Hero.forwardX;
             this.lastClicked = now;
             this.steps += 1;
-//            TranslateTransition t1 = hero.moveForward();
-//            t1.setOnFinished(actionEvent -> {
-//                moveSceneBackwards(100, 200);
-//            });
-//            t1.play();
         });
         hero.node.toFront();
         if (checkCollisionWithIslands()){
             hero.jump();
         }
 
-        moveFrameBack(now, 8);
+        checkCollisionWithEnemies();
+
+        moveFrameBack(now, hero.getSpeedX());
         hero.moveFrameWise();
 
         //movement of the frame
+        checkEnemyCollisionWithIslands();
+        for (Enemies e : enemies){
+            e.moveFrameWise();
+        }
 
-        for (Enemies e : enemies) {
-            //add the jumping thing
+    }
+    private void checkCollisionWithEnemies(){
+        for (Enemies e : enemies){
+            e.isColliding(hero);
         }
     }
 
@@ -100,14 +112,27 @@ public class GameState {
     }
 
     public void moveFrameBack(long now, double x){
+        if (toMoveFrameX < 0) {
+            return;
+        }
         if (!(toMoveFrameX > Hero.forwardX || (now - lastClicked > 150000000))) {
             return;
         }
-        double toMove = (x < toMoveFrameX) ? x : toMoveFrameX;
+        double toMove = Math.min(x, toMoveFrameX);
         toMoveFrameX -= toMove;
         for (GameObjects object : gameObjects) {
             Node node = object.getNode();
             node.setLayoutX(node.getLayoutX() - toMove);
+        }
+    }
+
+    private void checkEnemyCollisionWithIslands(){
+        for (Island i : islands) {
+            for (Enemies e : enemies) {
+                if (i.collidingEnemy(e)) {
+                    e.jump();
+                }
+            }
         }
     }
 

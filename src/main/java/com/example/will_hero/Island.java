@@ -17,7 +17,7 @@ public class Island extends GameObjects {
     };
     private ImageView platformNode;
 
-    protected Island(Node node) {
+    public Island(Node node) {
         super(node);
         Group platformGroup = (Group) node;
         platformNode = (ImageView) platformGroup.getChildren().get(0);
@@ -52,7 +52,18 @@ public class Island extends GameObjects {
         Bounds heroBounds = GameState.getBoundswrtPane(hero.getNode());
         Bounds platformBounds = GameState.getBoundswrtPane(platformNode);
         if (heroBounds.intersects(platformBounds)) {
-            if ((heroBounds.getMaxY() >= platformBounds.getMinY()) && (heroBounds.getMinY() <= platformBounds.getMinY() - hero.HEIGHT + hero.getSpeedX() + 0.5)) {
+            if ((heroBounds.getMaxY() >= platformBounds.getMinY()) && (heroBounds.getMinY() <= platformBounds.getMinY() - hero.HEIGHT + Math.abs(hero.getSpeedY()) + 0.5)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Boolean collidingEnemy(Enemies enemy) {
+        Bounds enemyBounds = GameState.getBoundswrtPane(enemy.getNode());
+        Bounds platformBounds = GameState.getBoundswrtPane(platformNode);
+        if (enemyBounds.intersects(platformBounds)) {
+            if ((enemyBounds.getMaxY() >= platformBounds.getMinY()) && (enemyBounds.getMinY() <= platformBounds.getMinY() - enemy.HEIGHT + Math.abs(enemy.getSpeedY()) + 0.5)) {
                 return true;
             }
         }

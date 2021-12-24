@@ -27,6 +27,9 @@ public class Game{
         setAnimationTimer();
     }
 
+    public GameState getCurrentState(){
+        return this.currentState;
+    }
     //helper function to view the game scene
     public void viewScene(MouseEvent event) {
         Parent root = null;
@@ -65,6 +68,10 @@ public class Game{
 
         for (int i = 0; i < 5; i++) {
             Island is = currentState.addIsland();
+            Bounds islandBounds = GameState.getBoundswrtPane(is.getPlatformNode());
+            Enemies enemy = currentState.addEnemy();
+            enemy.getNode().setLayoutX(islandBounds.getCenterX());
+            enemy.getNode().setLayoutY(islandBounds.getMinY() - enemy.HEIGHT);
         }
 
         animationTimer.start();
