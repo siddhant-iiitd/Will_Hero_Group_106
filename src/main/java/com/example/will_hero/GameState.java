@@ -61,13 +61,13 @@ public class GameState {
 
     // method which runs for each frame in animation timer
     public void updateState(long now) {
-        System.out.println(now);
+//        System.out.println(now);
         updateScoreBoard();
         updateCoinBoard();
 
         gamePane.setOnMouseClicked(event -> {
             hero.setToMoveX(hero.getToMoveX() + 120);
-            toMoveFrameX += 120;
+            toMoveFrameX += Hero.forwardX;
             this.lastClicked = now;
             this.steps += 1;
 //            TranslateTransition t1 = hero.moveForward();
@@ -76,8 +76,6 @@ public class GameState {
 //            });
 //            t1.play();
         });
-
-
         hero.node.toFront();
         if (checkCollisionWithIslands()){
             hero.jump();
@@ -102,7 +100,7 @@ public class GameState {
     }
 
     public void moveFrameBack(long now, double x){
-        if (!(toMoveFrameX > 120 || (now - lastClicked > 150000000))) {
+        if (!(toMoveFrameX > Hero.forwardX || (now - lastClicked > 150000000))) {
             return;
         }
         double toMove = (x < toMoveFrameX) ? x : toMoveFrameX;

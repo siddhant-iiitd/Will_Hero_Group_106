@@ -8,9 +8,9 @@ import java.util.ArrayList;
 
 public class Hero extends GameObjects{
     public static final String path = "AssetFXMLFiles/Hero.fxml";
+    public static final int forwardX = 120;
     private final int jumpY = 100;
     private final int jumpTIme = 500;
-    private final int forwardX = 100;
     private final int forwardTime = 200;
 
     volatile private double speedY = 0;
@@ -43,26 +43,23 @@ public class Hero extends GameObjects{
 
     // vertical movement to be called for each frame
     public void moveFrameWise(){
-        double moveX = (speedX < toMoveX) ? speedX : toMoveX;
-        toMoveX -= moveX;
-        node.setLayoutX(node.getLayoutX() + moveX);
+        if (toMoveX > 0){
+            double moveX = (speedX < toMoveX) ? speedX : toMoveX;
+            toMoveX -= moveX;
+            node.setLayoutX(node.getLayoutX() + moveX);
+            return;
+        }
         double displacement = -Physics.dispGravSecond(this.speedY);
         double finalSpeed = Physics.velocityChangeDownwards(this.speedY);
         node.setLayoutY(node.getLayoutY() + displacement);
         this.speedY = finalSpeed;
+        return;
     }
 
     public void jump() {
         this.speedY = 5.0;
     }
 
-    public TranslateTransition moveForward() {
-        TranslateTransition transition = new TranslateTransition();
-        transition.setNode(node);
-        transition.setDuration(Duration.millis(this.forwardTime));
-        transition.setByX(this.forwardX);
-        return transition;
-    }
 
     @Override
     public Boolean isColliding(Hero hero) {

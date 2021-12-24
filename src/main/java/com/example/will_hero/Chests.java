@@ -4,11 +4,20 @@ import javafx.scene.Node;
 
 public abstract class Chests extends GameObjects{
     public static final String path = "AssetFXMLFiles/Chest.fxml";
+    private boolean isOpened = false;
 
     public abstract void open();
 
     public Chests(Node node) {
         super(node);
+    }
+
+    public boolean getIsOpened() {
+        return isOpened;
+    }
+
+    public void setOpened(){
+        this.isOpened = true;
     }
 
     @Override
