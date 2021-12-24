@@ -57,6 +57,22 @@ public class GameState {
         return this.hero;
     }
 
+    // method which runs for each frame in animation timer
+    public void updateState(long now) {
+        if (checkCollisionWithIslands()){
+            hero.jump();
+        }
+    }
+
+    //checking if hero is on any of the islands
+    private boolean checkCollisionWithIslands(){
+        for(Island i : islands) {
+            if (i.isColliding(hero)){
+                return true;
+            }
+        }
+        return false;
+    }
 
     // helper function to get the bounds of any node with respect to the scene pane
     public static Bounds getBoundswrtPane(Node node) {

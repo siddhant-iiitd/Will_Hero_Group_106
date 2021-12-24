@@ -1,5 +1,6 @@
 package com.example.will_hero;
 
+import javafx.animation.AnimationTimer;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 public class Game{
     private GameController gameController;
     private GameState currentState;
-
+    private AnimationTimer animationTimer;
 
     public Hero hero;
 
@@ -23,6 +24,7 @@ public class Game{
 
     public Game() {
         currentState = new GameState(this);
+        setAnimationTimer();
     }
 
     //helper function to view the game scene
@@ -76,15 +78,27 @@ public class Game{
 //            printBounds(b);
         }
 
-        if (first.isColliding(hero)) {
-            hero.jump();
-        }
-        else {
-            System.out.println("no jump");
+//        if (first.isColliding(hero)) {
+//            hero.jump();
+//        }
+//        else {
+//            System.out.println("no jump");
+//
+//        }
 
-        }
+        animationTimer.start();
 
 
+    }
+
+    //helper method to set up the animation timer which runs frame by frame
+    private void setAnimationTimer() {
+        this.animationTimer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                currentState.updateState(now);
+            }
+        };
     }
 
     //function to print the bounds mainly for debugging
