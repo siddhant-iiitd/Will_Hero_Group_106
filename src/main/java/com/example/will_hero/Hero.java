@@ -25,16 +25,17 @@ public class Hero extends GameObjects{
 
     // vertical movement to be called for each frame
     public void moveFrameWise(){
-//        double displacement = -Physics.dispGravSecond(this.speedY);
-//        double finalSpeed = Physics.velocityChangeDownwards(this.speedY);
+        double displacement = -Physics.dispGravSecond(this.speedY);
+        double finalSpeed = Physics.velocityChangeDownwards(this.speedY);
 //        node.setTranslateY(displacement * 10);
 //        System.out.println("moving frame current speed " + this.speedY + " displacement: " + displacement + " final speed: " + finalSpeed);
 //        System.out.println("current y position: " + node.getBoundsInParent().getMaxY());
 //        this.speedY = finalSpeed;
         System.out.println("speed before" + this.speedY + " y position before " + node.getBoundsInParent().getMaxY());
-        node.setLayoutY(node.getLayoutY() -this.speedY);
+        node.setLayoutY(node.getLayoutY() + displacement);
 
-        this.speedY = this.speedY + Physics.gravity;
+        //this.speedY = this.speedY + Physics.gravity;
+        this.speedY = finalSpeed;
         System.out.println("speed now " + this.speedY + " y position after " + node.getBoundsInParent().getMaxY());
     }
 
