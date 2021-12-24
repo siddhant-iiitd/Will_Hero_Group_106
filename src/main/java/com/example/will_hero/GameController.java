@@ -75,6 +75,7 @@ public class GameController implements Initializable {
     }
 
     public void openSavePane(MouseEvent event) {
+        savePane.toFront();
         TranslateTransition transition = new TranslateTransition();
         transition.setNode(pauseMenu);
         transition.setDuration(Duration.millis(1000));
@@ -89,11 +90,23 @@ public class GameController implements Initializable {
 
 
     public void pauseGame(MouseEvent event) throws IOException {
+        game.pauseGame();
+        pauseMenu.toFront();
         TranslateTransition transition = new TranslateTransition();
         transition.setNode(pauseMenu);
         transition.setDuration(Duration.millis(1000));
         transition.setByY(-434);
         transition.play();
+
+    }
+
+    public void playGame(MouseEvent event) throws IOException {
+        TranslateTransition transition = new TranslateTransition();
+        transition.setNode(pauseMenu);
+        transition.setDuration(Duration.millis(1000));
+        transition.setByY(434);
+        transition.play();
+        game.resumeGame();
     }
 
     public void goHome(MouseEvent event) throws IOException {
@@ -104,43 +117,6 @@ public class GameController implements Initializable {
         stage.show();
     }
 
-    public void playGame(MouseEvent event) throws IOException {
-        TranslateTransition transition = new TranslateTransition();
-        transition.setNode(pauseMenu);
-        transition.setDuration(Duration.millis(1000));
-        transition.setByY(434);
-        transition.play();
-    }
-
-    public static TranslateTransition forward(Node node, int x, int time) {
-        TranslateTransition transition = new TranslateTransition();
-        transition.setNode(node);
-        transition.setDuration(Duration.millis(time));
-        transition.setByX(x);
-        return transition;
-    }
-//
-//    public void heroForward(Event event) {
-//        TranslateTransition transition = forward(hero, 100, 300);
-//        transition.play();
-//    }
-
-    public static TranslateTransition jumping(Node node,  int y, int time) {
-
-        TranslateTransition transition = new TranslateTransition();
-        transition.setNode(node);
-        transition.setDuration(Duration.millis(time));
-        transition.setByY(y);
-        return transition;
-    }
-
-    public static SequentialTransition jumpWithPause(Node node, int y, int time, int pause) {
-        TranslateTransition t1 = jumping(node, -y, time);
-        TranslateTransition t2 = jumping(node, y, time);
-        SequentialTransition seq = new SequentialTransition(t1, t2, new PauseTransition(Duration.millis(pause)));
-        seq.setCycleCount(Transition.INDEFINITE);
-        return  seq;
-    }
 
 
 }

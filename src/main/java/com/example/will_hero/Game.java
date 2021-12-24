@@ -71,6 +71,15 @@ public class Game{
 
     }
 
+    public void pauseGame(){
+
+        animationTimer.stop();
+    }
+    public void resumeGame(){
+        animationTimer.start();
+
+    }
+
     //helper method to set up the animation timer which runs frame by frame
     private void setAnimationTimer() {
         this.animationTimer = new AnimationTimer() {
@@ -80,6 +89,7 @@ public class Game{
             }
         };
     }
+
 
     //function to print the bounds mainly for debugging
     private static void printBounds(Bounds heroBounds) {
