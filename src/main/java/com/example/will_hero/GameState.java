@@ -33,6 +33,7 @@ public class GameState {
     private long lastClicked = 0;
     public double toMoveFrameX = 0;
 
+
     //FXML Objects
     protected static AnchorPane gamePane;
     private Hero hero;
@@ -81,8 +82,9 @@ public class GameState {
             this.steps += 1;
         });
         hero.node.toFront();
+        hero.onIsland = false;
         if (checkCollisionWithIslands()){
-            hero.jump();
+            hero.jump(now);
         }
 
         checkCollisionWithEnemies();
@@ -97,9 +99,14 @@ public class GameState {
         }
 
     }
+    public void endGame(){
+        game.pauseGame();
+    }
     private void checkCollisionWithEnemies(){
         for (Enemies e : enemies){
-            e.isColliding(hero);
+            if (e.isColliding(hero)){
+                endGame();
+            }
         }
     }
 
@@ -221,16 +228,9 @@ public class GameState {
         this.gamePane = anchorPane;
     }
 
-    public void enableForward(){
+    public void disableGamePane(){
         gamePane.setOnMouseClicked(event -> {
-            hero.setToMoveX(hero.getToMoveX() + 100);
-            toMoveFrameX += 100;
-
-//            TranslateTransition t1 = hero.moveForward();
-//            t1.setOnFinished(actionEvent -> {
-//                moveSceneBackwards(100, 200);
-//            });
-//            t1.play();
+            //nothing
         });
     }
     //helper static function to load a group from fxml file with given path

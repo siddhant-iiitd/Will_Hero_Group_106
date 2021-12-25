@@ -11,13 +11,13 @@ public class Hero extends GameObjects{
     private final int jumpY = 100;
     private final int jumpTIme = 500;
     private final int forwardTime = 200;
-    volatile private int delayY;
+    public boolean onIsland = false;
+    private long lastLanded = Long.MAX_VALUE;
 
-    volatile private double speedY = 0;
-    volatile private double speedX = 8;
+    private double speedY = 0;
+    private double speedX = 8;
 
-
-    volatile private double toMoveX = 0;
+    private double toMoveX = 0;
 
     private final Helmet helmet;
 
@@ -63,7 +63,8 @@ public class Hero extends GameObjects{
             node.setLayoutX(node.getLayoutX() - moveX);
             return;
         }
-        if (delayY == 0) {
+
+        if (!onIsland) {
             double displacement = -Physics.dispGravSecond(this.speedY);
             double finalSpeed = Physics.velocityChangeDownwards(this.speedY);
             node.setLayoutY(node.getLayoutY() + displacement);
@@ -72,17 +73,16 @@ public class Hero extends GameObjects{
         return;
     }
 
-    public void jump() {
-        if (delayY == 0) {
-            delayY = 6;
+
+    public void jump(long now) {
+        if (now - lastLanded > 100000000) {
+            lastLanded = Long.MAX_VALUE;
+            onIsland = false;
+            this.speedY = 5;
             return;
         }
-        delayY -=1;
-        if (delayY <= 1){
-            this.speedY = 5.0;
-            delayY = 0;
-            return;
-        }
+        onIsland = true;
+        lastLanded = Math.min(now, lastLanded);
     }
 
     public void collideEnemy(){
@@ -93,6 +93,10 @@ public class Hero extends GameObjects{
     @Override
     public Boolean isColliding(Hero hero) {
         return null;
+    }
+
+    public void collideEnemyTop(double speed) {
+        this.speedY = speed;
     }
 }
 

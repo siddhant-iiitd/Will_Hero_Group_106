@@ -26,13 +26,22 @@ public abstract class Enemies extends GameObjects {
 //                killHero(hero);
 //                return true;
 //            }
-            //collision from the top
-            if(enemyBounds.getMinY() >= heroBounds.getMaxY()){
-
+            //collision from bottom
+            double difference = enemyBounds.getMaxY() - heroBounds.getMinY();
+            if (difference < 5){
+                killHero(hero);
+                return true;
             }
+            //collision from the top
+            difference = enemyBounds.getMinY();
+//            if(enemyBounds.getMinY() - Math.abs(this.speedY) <= heroBounds.getMaxY() + Math.abs(hero.getSpeedY())){
+//                hero.collideEnemyTop(this.speedY);
+//                System.out.println("collide with enemy on top");
+//                return false;
+//            }
             hero.collideEnemy();
             collide();
-            return true;
+            return false;
         }
         return false;
     }
