@@ -30,9 +30,9 @@ public abstract class Chests extends GameObjects{
 
         // collision check function, island, enemy
         // opening,
-        ImageView chestnode = GameState.imageViewLoader(path);
+
         Bounds heroBounds = GameState.getBoundswrtPane(hero.getNode());
-        Bounds chestBounds = GameState.getBoundswrtPane(chestnode);
+        Bounds chestBounds = GameState.getBoundswrtPane(node);
         if (heroBounds.intersects(chestBounds)) {
 //            if ((heroBounds.getMaxY() >= chestBounds.getMinY()) && (heroBounds.getMinY() <= chestBounds.getMinY() - hero.HEIGHT + Math.abs(hero.getSpeedY()) + 0.5)) {
 //                return true;
