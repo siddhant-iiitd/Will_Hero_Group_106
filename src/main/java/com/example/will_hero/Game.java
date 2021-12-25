@@ -74,6 +74,16 @@ public class Game{
             enemy.getNode().setLayoutY(islandBounds.getMinY() - enemy.HEIGHT);
         }
 
+        Chests c1 = currentState.addChests();
+
+        Bounds c1Bound = GameState.getBoundswrtPane(c1.node);
+        Bounds firstbound = GameState.getBoundswrtPane(first.getPlatformNode());
+        printBounds(c1Bound);
+        printBounds(first.islandBounds());
+        c1.node.setLayoutX(firstbound.getCenterX() - c1.WIDTH/2);
+        c1.node.setLayoutY(firstbound.getMinY()-c1.HEIGHT); //top of island
+        //c1.node.setLayoutY(first.islandBounds().getCenterY());
+
         animationTimer.start();
 
     }

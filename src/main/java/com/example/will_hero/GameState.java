@@ -52,6 +52,15 @@ public class GameState {
         return h;
     }
 
+    public Chests addChests(){
+        Chests c = Chests.addChests(); //getting the chest
+        gamePane.getChildren().add(c.node); // gamepane --> nodes
+        gameObjects.add(c);
+        chests.add(c);
+        return c;
+    }
+
+
     public void setHero(Hero hero) {
         this.hero = hero;
     }

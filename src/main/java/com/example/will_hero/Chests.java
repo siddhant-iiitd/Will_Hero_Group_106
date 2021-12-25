@@ -1,6 +1,7 @@
 package com.example.will_hero;
 
 import javafx.scene.Node;
+import javafx.scene.image.ImageView;
 
 public abstract class Chests extends GameObjects{
     public static final String path = "AssetFXMLFiles/Chest.fxml";
@@ -23,6 +24,12 @@ public abstract class Chests extends GameObjects{
     @Override
     public Boolean isColliding(Hero hero) {
         return null;
+    }
+
+    public static Chests addChests(){
+        ImageView chestnode = GameState.imageViewLoader(path);
+        CoinChest chest1= new CoinChest(chestnode);
+        return chest1;
     }
 }
 
