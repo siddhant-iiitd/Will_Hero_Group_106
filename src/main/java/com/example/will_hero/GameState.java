@@ -93,7 +93,10 @@ public class GameState {
         hero.moveFrameWise();
 
         //movement of the frame
-        checkEnemyCollisionWithIslands();
+        for (Enemies e : enemies){
+            e.onIsland = false;
+        }
+        checkEnemyCollisionWithIslands(now);
         for (Enemies e : enemies){
             e.moveFrameWise();
         }
@@ -133,11 +136,12 @@ public class GameState {
         }
     }
 
-    private void checkEnemyCollisionWithIslands(){
+    private void checkEnemyCollisionWithIslands(long now){
         for (Island i : islands) {
             for (Enemies e : enemies) {
+
                 if (i.collidingEnemy(e)) {
-                    e.jump();
+                    e.jump(now);
                 }
             }
         }

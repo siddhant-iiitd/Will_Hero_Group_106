@@ -8,6 +8,8 @@ public abstract class Enemies extends GameObjects {
     private double speedY = 0;
     private double toMoveX = 0;
     private int delayY = 0;
+    private long lastLanded = Long.MAX_VALUE;
+    public boolean onIsland = false;
     protected Enemies(Node node) {
         super(node);
     }
@@ -33,12 +35,18 @@ public abstract class Enemies extends GameObjects {
                 return true;
             }
             //collision from the top
-            difference = enemyBounds.getMinY();
+            //difference = enemyBounds.getMinY();
 //            if(enemyBounds.getMinY() - Math.abs(this.speedY) <= heroBounds.getMaxY() + Math.abs(hero.getSpeedY())){
-//                hero.collideEnemyTop(this.speedY);
-//                System.out.println("collide with enemy on top");
-//                return false;
-//            }
+              if (heroBounds.getMaxY() - enemyBounds.getMinY() < 5){
+                if (this.speedY < 0) {
+                    hero.setSpeedY(0);
+                }
+                else {
+                    hero.setSpeedY(4);
+                }
+                System.out.println("collide with enemy on top");
+                return false;
+            }
             hero.collideEnemy();
             collide();
             return false;
@@ -61,7 +69,7 @@ public abstract class Enemies extends GameObjects {
             node.setLayoutX(node.getLayoutX() + moveX);
             return;
         }
-        if (delayY == 0) {
+        if (!onIsland) {
             double displacement = -Physics.dispGravSecond(this.speedY);
             double finalSpeed = Physics.velocityChangeDownwards(this.speedY);
             node.setLayoutY(node.getLayoutY() + displacement);
@@ -70,17 +78,15 @@ public abstract class Enemies extends GameObjects {
         }
     }
 
-    public void jump(){
-        if (delayY == 0) {
-            delayY = 6;
+    public void jump(long now){
+        if (now - lastLanded > 100000000) {
+            lastLanded = Long.MAX_VALUE;
+            onIsland = false;
+            this.speedY = 5;
             return;
         }
-        delayY -=1;
-        if (delayY <= 1){
-            this.speedY = 6.0;
-            delayY = 0;
-            return;
-        }
+        onIsland = true;
+        lastLanded = Math.min(now, lastLanded);
     }
 
     public double getSpeedY() {

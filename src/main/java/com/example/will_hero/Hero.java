@@ -30,7 +30,9 @@ public class Hero extends GameObjects{
     public double getSpeedY(){
         return this.speedY;
     }
-
+    public void setSpeedY(double s){
+        this.speedY =s;
+    }
     public double getSpeedX() {
         return speedX;
     }
