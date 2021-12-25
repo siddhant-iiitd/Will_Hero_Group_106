@@ -7,6 +7,7 @@ public abstract class Enemies extends GameObjects {
     private double speedX = 5;
     private double speedY = 0;
     private double toMoveX = 0;
+    private int delayY = 0;
     protected Enemies(Node node) {
         super(node);
     }
@@ -25,6 +26,10 @@ public abstract class Enemies extends GameObjects {
 //                killHero(hero);
 //                return true;
 //            }
+            //collision from the top
+            if(enemyBounds.getMinY() >= heroBounds.getMaxY()){
+
+            }
             hero.collideEnemy();
             collide();
             return true;
@@ -33,7 +38,7 @@ public abstract class Enemies extends GameObjects {
     }
 
     private void collide(){
-        toMoveX = 50;
+        toMoveX = 100;
     }
 
     private void killHero(Hero hero){
@@ -42,20 +47,31 @@ public abstract class Enemies extends GameObjects {
 
     public void moveFrameWise(){
         if (toMoveX > 0){
-            double moveX = (speedX < toMoveX) ? speedX : toMoveX;
+            double moveX = Math.min(speedX, toMoveX);
             toMoveX -= moveX;
             node.setLayoutX(node.getLayoutX() + moveX);
             return;
         }
-        double displacement = -Physics.dispGravSecond(this.speedY);
-        double finalSpeed = Physics.velocityChangeDownwards(this.speedY);
-        node.setLayoutY(node.getLayoutY() + displacement);
-        this.speedY = finalSpeed;
-        return;
+        if (delayY == 0) {
+            double displacement = -Physics.dispGravSecond(this.speedY);
+            double finalSpeed = Physics.velocityChangeDownwards(this.speedY);
+            node.setLayoutY(node.getLayoutY() + displacement);
+            this.speedY = finalSpeed;
+            return;
+        }
     }
 
     public void jump(){
-        this.speedY = 6;
+        if (delayY == 0) {
+            delayY = 6;
+            return;
+        }
+        delayY -=1;
+        if (delayY <= 1){
+            this.speedY = 6.0;
+            delayY = 0;
+            return;
+        }
     }
 
     public double getSpeedY() {

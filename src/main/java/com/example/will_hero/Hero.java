@@ -1,8 +1,6 @@
 package com.example.will_hero;
 
-import javafx.animation.TranslateTransition;
 import javafx.scene.Node;
-import javafx.util.Duration;
 
 import java.util.ArrayList;
 
@@ -13,6 +11,7 @@ public class Hero extends GameObjects{
     private final int jumpY = 100;
     private final int jumpTIme = 500;
     private final int forwardTime = 200;
+    volatile private int delayY;
 
     volatile private double speedY = 0;
     volatile private double speedX = 8;
@@ -64,20 +63,31 @@ public class Hero extends GameObjects{
             node.setLayoutX(node.getLayoutX() - moveX);
             return;
         }
-        double displacement = -Physics.dispGravSecond(this.speedY);
-        double finalSpeed = Physics.velocityChangeDownwards(this.speedY);
-        node.setLayoutY(node.getLayoutY() + displacement);
-        this.speedY = finalSpeed;
+        if (delayY == 0) {
+            double displacement = -Physics.dispGravSecond(this.speedY);
+            double finalSpeed = Physics.velocityChangeDownwards(this.speedY);
+            node.setLayoutY(node.getLayoutY() + displacement);
+            this.speedY = finalSpeed;
+        }
         return;
     }
 
     public void jump() {
-        this.speedY = 5.0;
+        if (delayY == 0) {
+            delayY = 6;
+            return;
+        }
+        delayY -=1;
+        if (delayY <= 1){
+            this.speedY = 5.0;
+            delayY = 0;
+            return;
+        }
     }
 
     public void collideEnemy(){
-        game.getCurrentState().toMoveFrameX -=  this.toMoveX + 30;
-        this.toMoveX = -30;
+        game.getCurrentState().toMoveFrameX -=  this.toMoveX + 50;
+        this.toMoveX = -50;
     }
 
     @Override
