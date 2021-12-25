@@ -7,7 +7,6 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
@@ -25,6 +24,7 @@ public class GameState {
     private ArrayList<Island> islands = new ArrayList<>();
     private ArrayList<TNT> tnts = new ArrayList<>();
     private ArrayList<Chests> chests = new ArrayList<>();
+    private ArrayList<Weapons> weapons = new ArrayList<>();
     private int steps = 0;
     private int coins = 0;
     private boolean hasEnded;
@@ -80,27 +80,79 @@ public class GameState {
             toMoveFrameX += Hero.forwardX;
             this.lastClicked = now;
             this.steps += 1;
+            Weapons newWeapon = hero.getCurrWeapon();
+            if (newWeapon != null) {
+                Node node = newWeapon.getNode();
+                node.setLayoutX(hero.node.getLayoutX());
+                node.setLayoutY(hero.node.getLayoutY());
+                gamePane.getChildren().add(node);
+                weapons.add(newWeapon);
+                gameObjects.add(newWeapon);
+            }
         });
-        hero.node.toFront();
+
         hero.onIsland = false;
         if (checkCollisionWithIslands()){
             hero.jump(now);
         }
 
         checkCollisionWithEnemies();
-
+        checkWeaponAttack();
+        moveWeapons();
         moveFrameBack(now, hero.getSpeedX());
         hero.moveFrameWise();
 
         //movement of the frame
         for (Enemies e : enemies){
             e.onIsland = false;
+            e.node.toFront();
         }
+
         checkEnemyCollisionWithIslands(now);
         for (Enemies e : enemies){
             e.moveFrameWise();
         }
+        updateWeapons();
+        updateEnemies();
 
+        //set hero to front
+        hero.node.toFront();
+    }
+    private void updateEnemies(){
+        ArrayList<Enemies> toRemove = new ArrayList<>();
+        for (Enemies e: enemies) {
+            if (e.isKilled){
+                toRemove.add(e);
+            }
+        }
+        for (Enemies e: toRemove){
+            removeObject(e);
+        }
+    }
+    private void updateWeapons(){
+        ArrayList<Weapons> toRemove = new ArrayList<>();
+        for (Weapons w:weapons) {
+            if (w.toMoveX <= 0 || w.killedSomeone) {
+                toRemove.add(w);
+            }
+        }
+        for (Weapons w1 : toRemove) {
+            removeObject(w1);
+        }
+    }
+    private void moveWeapons(){
+        for (Weapons w: weapons){
+            w.moveByFrame();
+        }
+    }
+    private void checkWeaponAttack(){
+        for (Weapons w: weapons){
+            for (Enemies e : enemies) {
+                if (w.intersectsWithEnemy(e)){
+                    e.killed();
+                }
+            }
+        }
     }
     public void endGame(){
         game.pauseGame();
@@ -208,8 +260,12 @@ public class GameState {
             chests.remove(object);
         }
         else if (object instanceof TNT) {
-            tnts.remove(tnts);
+            tnts.remove(object);
         }
+        else if (object instanceof Weapons) {
+            weapons.remove(object);
+        }
+
         gameObjects.remove(object);
     }
 

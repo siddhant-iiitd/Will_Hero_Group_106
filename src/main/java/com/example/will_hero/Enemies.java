@@ -13,6 +13,7 @@ public abstract class Enemies extends GameObjects {
     protected Enemies(Node node) {
         super(node);
     }
+    public boolean isKilled = false;
 
 
     public String getPath(){
@@ -54,6 +55,11 @@ public abstract class Enemies extends GameObjects {
         return false;
     }
 
+    public void killed(){
+        System.out.println("enemy is killed");
+        this.isKilled = true;
+    }
+
     private void collide(){
         toMoveX = 100;
     }
@@ -82,7 +88,7 @@ public abstract class Enemies extends GameObjects {
         if (now - lastLanded > 100000000) {
             lastLanded = Long.MAX_VALUE;
             onIsland = false;
-            this.speedY = 5;
+            this.speedY = 6;
             return;
         }
         onIsland = true;

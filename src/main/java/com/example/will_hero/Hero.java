@@ -3,6 +3,7 @@ package com.example.will_hero;
 import javafx.scene.Node;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Hero extends GameObjects{
     private final Game game;
@@ -26,12 +27,15 @@ public class Hero extends GameObjects{
         this.game = game;
         helmet = new Helmet();
     }
+    public Helmet getHelmet(){
+        return helmet;
+    }
 
     public double getSpeedY(){
         return this.speedY;
     }
     public void setSpeedY(double s){
-        this.speedY =s;
+        this.speedY = s;
     }
     public double getSpeedX() {
         return speedX;
@@ -97,19 +101,43 @@ public class Hero extends GameObjects{
         return null;
     }
 
-    public void collideEnemyTop(double speed) {
-        this.speedY = speed;
+    public Weapons getCurrWeapon(){
+        return helmet.getCurrWeapon();
     }
 }
 
 class Helmet {
     private ArrayList<Weapons> WEAPONS_OPTIONS;
+    private Weapons currWeapon = new Shuriken();
+
     public Helmet(){
         WEAPONS_OPTIONS = new ArrayList<>();
-        WEAPONS_OPTIONS.add(new Weapon1());
-        WEAPONS_OPTIONS.add(new Weapon2());
+        WEAPONS_OPTIONS.add(new Shuriken());
+        WEAPONS_OPTIONS.add(new Knife());
     }
     public Weapons getWeapon(){
-        return null;
+        Random rand = new Random();
+        if (rand.nextBoolean()){
+            return WEAPONS_OPTIONS.get(0);
+        }
+        else{
+            return WEAPONS_OPTIONS.get(1);
+        }
+    }
+
+    public void setCurrWeapons(Weapons w){
+        this.currWeapon = w;
+    }
+
+    public Weapons getCurrWeapon(){
+        if (currWeapon == null) {
+            return null;
+        }
+        if (currWeapon.getClass() == Shuriken.class) {
+            return new Shuriken();
+        }
+        else {
+            return new Knife();
+        }
     }
 }
