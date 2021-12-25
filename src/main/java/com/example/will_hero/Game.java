@@ -94,8 +94,8 @@ public class Game{
     }
 
     public void pauseGame(){
-
         animationTimer.stop();
+        currentState.disableGamePane();
     }
     public void resumeGame(){
         animationTimer.start();

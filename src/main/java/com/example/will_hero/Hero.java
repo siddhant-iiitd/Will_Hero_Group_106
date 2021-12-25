@@ -3,6 +3,7 @@ package com.example.will_hero;
 import javafx.scene.Node;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Hero extends GameObjects{
     private final Game game;
@@ -11,13 +12,13 @@ public class Hero extends GameObjects{
     private final int jumpY = 100;
     private final int jumpTIme = 500;
     private final int forwardTime = 200;
-    volatile private int delayY;
+    public boolean onIsland = false;
+    private long lastLanded = Long.MAX_VALUE;
 
-    volatile private double speedY = 0;
-    volatile private double speedX = 8;
+    private double speedY = 0;
+    private double speedX = 8;
 
-
-    volatile private double toMoveX = 0;
+    private double toMoveX = 0;
 
     private final Helmet helmet;
 
@@ -26,11 +27,16 @@ public class Hero extends GameObjects{
         this.game = game;
         helmet = new Helmet();
     }
+    public Helmet getHelmet(){
+        return helmet;
+    }
 
     public double getSpeedY(){
         return this.speedY;
     }
-
+    public void setSpeedY(double s){
+        this.speedY = s;
+    }
     public double getSpeedX() {
         return speedX;
     }
@@ -63,7 +69,8 @@ public class Hero extends GameObjects{
             node.setLayoutX(node.getLayoutX() - moveX);
             return;
         }
-        if (delayY == 0) {
+
+        if (!onIsland) {
             double displacement = -Physics.dispGravSecond(this.speedY);
             double finalSpeed = Physics.velocityChangeDownwards(this.speedY);
             node.setLayoutY(node.getLayoutY() + displacement);
@@ -72,17 +79,16 @@ public class Hero extends GameObjects{
         return;
     }
 
-    public void jump() {
-        if (delayY == 0) {
-            delayY = 6;
+
+    public void jump(long now) {
+        if (now - lastLanded > 100000000) {
+            lastLanded = Long.MAX_VALUE;
+            onIsland = false;
+            this.speedY = 5;
             return;
         }
-        delayY -=1;
-        if (delayY <= 1){
-            this.speedY = 5.0;
-            delayY = 0;
-            return;
-        }
+        onIsland = true;
+        lastLanded = Math.min(now, lastLanded);
     }
 
     public void collideEnemy(){
@@ -94,16 +100,44 @@ public class Hero extends GameObjects{
     public Boolean isColliding(Hero hero) {
         return null;
     }
+
+    public Weapons getCurrWeapon(){
+        return helmet.getCurrWeapon();
+    }
 }
 
 class Helmet {
     private ArrayList<Weapons> WEAPONS_OPTIONS;
+    private Weapons currWeapon = new Shuriken();
+
     public Helmet(){
         WEAPONS_OPTIONS = new ArrayList<>();
-        WEAPONS_OPTIONS.add(new Weapon1());
-        WEAPONS_OPTIONS.add(new Weapon2());
+        WEAPONS_OPTIONS.add(new Shuriken());
+        WEAPONS_OPTIONS.add(new Knife());
     }
     public Weapons getWeapon(){
-        return null;
+        Random rand = new Random();
+        if (rand.nextBoolean()){
+            return WEAPONS_OPTIONS.get(0);
+        }
+        else{
+            return WEAPONS_OPTIONS.get(1);
+        }
+    }
+
+    public void setCurrWeapons(Weapons w){
+        this.currWeapon = w;
+    }
+
+    public Weapons getCurrWeapon(){
+        if (currWeapon == null) {
+            return null;
+        }
+        if (currWeapon.getClass() == Shuriken.class) {
+            return new Shuriken();
+        }
+        else {
+            return new Knife();
+        }
     }
 }

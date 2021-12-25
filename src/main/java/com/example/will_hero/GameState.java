@@ -8,7 +8,6 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
@@ -26,6 +25,7 @@ public class GameState {
     private ArrayList<Island> islands = new ArrayList<>();
     private ArrayList<TNT> tnts = new ArrayList<>();
     private ArrayList<Chests> chests = new ArrayList<>();
+    private ArrayList<Weapons> weapons = new ArrayList<>();
     private int steps = 0;
     private int coins = 0;
     private boolean hasEnded;
@@ -33,6 +33,7 @@ public class GameState {
 
     private long lastClicked = 0;
     public double toMoveFrameX = 0;
+
 
     //FXML Objects
     protected static AnchorPane gamePane;
@@ -89,10 +90,20 @@ public class GameState {
             toMoveFrameX += Hero.forwardX;
             this.lastClicked = now;
             this.steps += 1;
+            Weapons newWeapon = hero.getCurrWeapon();
+            if (newWeapon != null) {
+                Node node = newWeapon.getNode();
+                node.setLayoutX(hero.node.getLayoutX());
+                node.setLayoutY(hero.node.getLayoutY());
+                gamePane.getChildren().add(node);
+                weapons.add(newWeapon);
+                gameObjects.add(newWeapon);
+            }
         });
-        hero.node.toFront();
+
+        hero.onIsland = false;
         if (checkCollisionWithIslands()){
-            hero.jump();
+            hero.jump(now);
         }
 
 
@@ -106,20 +117,71 @@ public class GameState {
 
 
         checkCollisionWithEnemies();
-
+        checkWeaponAttack();
+        moveWeapons();
         moveFrameBack(now, hero.getSpeedX());
         hero.moveFrameWise();
 
         //movement of the frame
-        checkEnemyCollisionWithIslands();
+        for (Enemies e : enemies){
+            e.onIsland = false;
+            e.node.toFront();
+        }
+
+        checkEnemyCollisionWithIslands(now);
         for (Enemies e : enemies){
             e.moveFrameWise();
         }
+        updateWeapons();
+        updateEnemies();
 
+        //set hero to front
+        hero.node.toFront();
+    }
+    private void updateEnemies(){
+        ArrayList<Enemies> toRemove = new ArrayList<>();
+        for (Enemies e: enemies) {
+            if (e.isKilled){
+                toRemove.add(e);
+            }
+        }
+        for (Enemies e: toRemove){
+            removeObject(e);
+        }
+    }
+    private void updateWeapons(){
+        ArrayList<Weapons> toRemove = new ArrayList<>();
+        for (Weapons w:weapons) {
+            if (w.toMoveX <= 0 || w.killedSomeone) {
+                toRemove.add(w);
+            }
+        }
+        for (Weapons w1 : toRemove) {
+            removeObject(w1);
+        }
+    }
+    private void moveWeapons(){
+        for (Weapons w: weapons){
+            w.moveByFrame();
+        }
+    }
+    private void checkWeaponAttack(){
+        for (Weapons w: weapons){
+            for (Enemies e : enemies) {
+                if (w.intersectsWithEnemy(e)){
+                    e.killed();
+                }
+            }
+        }
+    }
+    public void endGame(){
+        game.pauseGame();
     }
     private void checkCollisionWithEnemies(){
         for (Enemies e : enemies){
-            e.isColliding(hero);
+            if (e.isColliding(hero)){
+                endGame();
+            }
         }
     }
 
@@ -146,11 +208,12 @@ public class GameState {
         }
     }
 
-    private void checkEnemyCollisionWithIslands(){
+    private void checkEnemyCollisionWithIslands(long now){
         for (Island i : islands) {
             for (Enemies e : enemies) {
+
                 if (i.collidingEnemy(e)) {
-                    e.jump();
+                    e.jump(now);
                 }
             }
         }
@@ -235,8 +298,12 @@ public class GameState {
             chests.remove(object);
         }
         else if (object instanceof TNT) {
-            tnts.remove(tnts);
+            tnts.remove(object);
         }
+        else if (object instanceof Weapons) {
+            weapons.remove(object);
+        }
+
         gameObjects.remove(object);
     }
 
@@ -259,16 +326,9 @@ public class GameState {
         this.gamePane = anchorPane;
     }
 
-    public void enableForward(){
+    public void disableGamePane(){
         gamePane.setOnMouseClicked(event -> {
-            hero.setToMoveX(hero.getToMoveX() + 100);
-            toMoveFrameX += 100;
-
-//            TranslateTransition t1 = hero.moveForward();
-//            t1.setOnFinished(actionEvent -> {
-//                moveSceneBackwards(100, 200);
-//            });
-//            t1.play();
+            //nothing
         });
     }
     //helper static function to load a group from fxml file with given path
