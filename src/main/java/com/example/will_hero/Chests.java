@@ -1,10 +1,12 @@
 package com.example.will_hero;
 
+import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 
 public abstract class Chests extends GameObjects{
     public static final String path = "AssetFXMLFiles/Chest.fxml";
+    public static ImageView openChest= GameState.imageViewLoader("AssetFXMLFiles/ChestOpen.fxml");
     private boolean isOpened = false;
 
     public abstract void open();
@@ -23,7 +25,21 @@ public abstract class Chests extends GameObjects{
 
     @Override
     public Boolean isColliding(Hero hero) {
-        return null;
+        // this function tells us if the collision bw hero and the chest is taking place (returns true)
+        // or not (return false).
+
+        // collision check function, island, enemy
+        // opening,
+        ImageView chestnode = GameState.imageViewLoader(path);
+        Bounds heroBounds = GameState.getBoundswrtPane(hero.getNode());
+        Bounds chestBounds = GameState.getBoundswrtPane(chestnode);
+        if (heroBounds.intersects(chestBounds)) {
+//            if ((heroBounds.getMaxY() >= chestBounds.getMinY()) && (heroBounds.getMinY() <= chestBounds.getMinY() - hero.HEIGHT + Math.abs(hero.getSpeedY()) + 0.5)) {
+//                return true;
+//            }
+            return true;
+        }
+        return false;
     }
 
     public static Chests addChests(){

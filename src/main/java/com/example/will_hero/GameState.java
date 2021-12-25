@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
@@ -94,6 +95,16 @@ public class GameState {
             hero.jump();
         }
 
+
+        checkCollisionWithChests();
+            //chest node ki image change karni hai to open chest
+            //ImageView openChestNode = GameState.imageViewLoader("/com/example/will_hero/assets/ChestOpen.png");
+//            Image image = new Image("/com/example/will_hero/assets/ChestOpen.png");
+//
+//
+//            openChestNode.setImage(image);
+
+
         checkCollisionWithEnemies();
 
         moveFrameBack(now, hero.getSpeedX());
@@ -150,6 +161,24 @@ public class GameState {
         for(Island i : islands) {
             if (i.isColliding(hero)){
                 return true;
+            }
+        }
+        return false;
+    }
+
+    //checking if hero has opened any of the chests
+    private boolean checkCollisionWithChests(){
+        for(Chests k: chests){
+            if(k.isColliding(hero)){
+                ImageView chestNode = (ImageView) k.getNode();
+
+                //Image image = new Image("/com/example/will_hero/assets/ChestOpen.png");
+                //Image image = new Image("src/main/resources/com/example/will_hero/assets/ChestOpen.png");
+                chestNode.setImage(Chests.openChest.getImage());
+                //chestNode.getImage()
+
+                return true;
+
             }
         }
         return false;
