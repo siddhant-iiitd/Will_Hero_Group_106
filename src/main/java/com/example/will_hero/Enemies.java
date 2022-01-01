@@ -121,10 +121,10 @@ class GreenOrc extends Enemies {
         super(node);
     }
 
-    @Override
-    public Boolean isColliding(Hero hero) {
-        return null;
-    }
+//    @Override
+//    public Boolean isColliding(Hero hero) {
+//        return null;
+//    }
 }
 
 class Boss extends Enemies {
@@ -136,6 +136,6 @@ class Boss extends Enemies {
 
     @Override
     public Boolean isColliding(Hero hero) {
-        return null;
+        return false;
     }
 }

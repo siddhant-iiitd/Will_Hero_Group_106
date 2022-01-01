@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="576.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Group layoutX="214.0" layoutY="139.0">
+         <children>
+            <ImageView fitHeight="10.0" fitWidth="600.0" layoutX="36.0" layoutY="3.0" pickOnBounds="true">
+               <image>
+                  <Image url="@../images/platform.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="-159.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/platform_small.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Group>
+   </children>
+</AnchorPane>

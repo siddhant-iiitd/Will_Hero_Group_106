@@ -31,6 +31,9 @@ public class Game{
     public GameState getCurrentState(){
         return this.currentState;
     }
+
+
+
     //helper function to view the game scene
     public void viewScene(MouseEvent event) {
         Parent root = null;

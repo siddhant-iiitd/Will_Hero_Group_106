@@ -2,6 +2,7 @@ package com.example.will_hero;
 
 import javafx.scene.Node;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -106,7 +107,7 @@ public class Hero extends GameObjects{
     }
 }
 
-class Helmet {
+class Helmet implements Serializable {
     private ArrayList<Weapons> WEAPONS_OPTIONS;
     private Weapons currWeapon = null;
 
@@ -115,6 +116,7 @@ class Helmet {
         WEAPONS_OPTIONS.add(new Shuriken());
         WEAPONS_OPTIONS.add(new Knife());
     }
+
     public Weapons getWeapon(){
         Random rand = new Random();
         if (rand.nextBoolean()){

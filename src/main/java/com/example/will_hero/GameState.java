@@ -1,6 +1,7 @@
 package com.example.will_hero;
 
 import javafx.animation.TranslateTransition;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
@@ -12,10 +13,11 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class GameState {
+public class GameState implements Serializable {
     private final Game game;
 
     Random rand = new Random();
@@ -29,6 +31,7 @@ public class GameState {
     private int steps = 0;
     private int coins = 0;
     private boolean hasEnded;
+    private boolean reachedEnd;
     private boolean hasRevived;
     private int lastAdd = 0;
     private int heroStart;
@@ -60,18 +63,32 @@ public class GameState {
             //TNTS
         }
         else {
-            int maxEnemies = (int) (island.WIDTH / 100);
-            int count = rand.nextInt(Math.min(maxEnemies, 3) + 1);
-            double gap = island.WIDTH / count;
-            for (int i = 0; i < count; i++) {
-                Enemies enemy = addEnemy();
-                enemy.node.setLayoutY(islandBounds.getMinY() - enemy.HEIGHT);
-                enemy.node.setLayoutX(islandBounds.getMinX() + rand.nextInt(50) + (100 * i)  + 10);
-            }
+//            int maxEnemies = (int) (island.WIDTH / 100);
+//            int count = rand.nextInt(Math.min(maxEnemies, 3) + 1);
+//            double gap = island.WIDTH / count;
+//            for (int i = 0; i < count; i++) {
+//                Enemies enemy = addEnemy();
+//                enemy.node.setLayoutY(islandBounds.getMinY() - enemy.HEIGHT);
+//                enemy.node.setLayoutX(islandBounds.getMinX() + rand.nextInt(50) + (100 * i)  + 10);
+//            }
         }
     }
+
+    private void addBossLevel(){
+        Node bossNode = imageViewLoader(Boss.path);
+        Boss boss = new Boss(bossNode);
+        enemies.add(boss);
+        addGameObject(boss);
+        //Island island = Island.createIsland("AssetFXMLFiles/BossIsland.fxml");
+//        addIsland(island);
+//        Bounds islandBounds = getBoundswrtPane(island.node);
+//        boss.node.setLayoutX(islandBounds.getMinX() + 300);
+//        boss.node.setLayoutY();
+    }
+
     public void setHeroStart(int pos){
         heroStart = pos;
+        hero.node.setId("hero");
     }
 
     public Hero addHero(){
@@ -170,14 +187,21 @@ public class GameState {
         Bounds firstBounds = getBoundswrtPane(islands.get(1).getPlatformNode());
         Bounds heroBounds = getBoundswrtPane(hero.getNode());
         Bounds lastBounds = getBoundswrtPane(islands.get(islands.size() - 1).getPlatformNode());
-        if (heroBounds.getMinX() - 500 > firstBounds.getMinX() && heroBounds.getMinX() + 500 < lastBounds.getMinX()) {
+        if (!reachedEnd && (heroBounds.getMinX() - 500 > firstBounds.getMinX() && heroBounds.getMinX() + 500 < lastBounds.getMinX())) {
             System.out.println("added level " + steps);
-
-            addALevel();
+            if (steps >= 100) {
+                reachedEnd = true;
+                addBossLevel();
+            }
+            else {
+                addALevel();
+            }
         }
         //set hero to front
         hero.node.toFront();
     }
+
+
     private void updateEnemies(){
         ArrayList<Enemies> toRemove = new ArrayList<>();
         for (Enemies e: enemies) {
