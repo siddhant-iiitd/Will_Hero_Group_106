@@ -65,14 +65,14 @@ public class GameState implements Serializable {
             //TNTS
         }
         else {
-//            int maxEnemies = (int) (island.WIDTH / 100);
-//            int count = rand.nextInt(Math.min(maxEnemies, 3) + 1);
-//            double gap = island.WIDTH / count;
-//            for (int i = 0; i < count; i++) {
-//                Enemies enemy = addEnemy();
-//                enemy.node.setLayoutY(islandBounds.getMinY() - enemy.HEIGHT);
-//                enemy.node.setLayoutX(islandBounds.getMinX() + rand.nextInt(50) + (100 * i)  + 10);
-//            }
+            int maxEnemies = (int) (island.WIDTH / 100);
+            int count = rand.nextInt(Math.min(maxEnemies, 3) + 1);
+            double gap = island.WIDTH / count;
+            for (int i = 0; i < count; i++) {
+                Enemies enemy = addEnemy();
+                enemy.node.setLayoutY(islandBounds.getMinY() - enemy.HEIGHT);
+                enemy.node.setLayoutX(islandBounds.getMinX() + rand.nextInt(50) + (100 * i)  + 10);
+            }
         }
     }
 
