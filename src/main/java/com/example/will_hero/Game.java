@@ -101,6 +101,8 @@ public class Game{
         Island first = Island.createIsland(Island.paths[0]);
         currentState.addIsland(first);
         hero.getNode().setLayoutX(215);
+        System.out.println((int) hero.getNode().getLayoutX());
+        currentState.setHeroStart((int) hero.getNode().getLayoutX());
         hero.getNode().setLayoutY(GameState.getBoundswrtPane(first.getPlatformNode()).getMinY() - hero.HEIGHT);
 
         for (int i = 0; i < 5; i++) {

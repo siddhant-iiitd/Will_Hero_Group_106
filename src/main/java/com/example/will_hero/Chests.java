@@ -47,16 +47,14 @@ public abstract class Chests extends GameObjects{
     public static Chests addChests(){
         ImageView chestnode = GameState.imageViewLoader(path);
         Random rand = new Random();
-        Chests chest = new CoinChest(chestnode);
+        Chests chest;
+        if (rand.nextBoolean()) {
+            chest = new CoinChest(chestnode);
+        }
+        else {
+            chest = new WeaponsChest(chestnode);
+        }
         return chest;
-
-//        if (rand.nextBoolean()) {
-//            chest = new CoinChest(chestnode);
-//        }
-//        else {
-//            chest = new WeaponsChest(chestnode);
-//        }
-//        return chest;
     }
 }
 

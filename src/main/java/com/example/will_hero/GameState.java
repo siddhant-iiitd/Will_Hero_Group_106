@@ -30,6 +30,8 @@ public class GameState {
     private int coins = 0;
     private boolean hasEnded;
     private boolean hasRevived;
+    private int lastAdd = 0;
+    private int heroStart;
 
     private long lastClicked = 0;
     public double toMoveFrameX = 0;
@@ -51,14 +53,14 @@ public class GameState {
         int chance = rand.nextInt(10);
         if (chance == 9) {
             Chests chest = addChests();
-            chest.node.setLayoutX(islandBounds.getCenterX() - (islandBounds.getWidth()/2));
+            chest.node.setLayoutX(islandBounds.getCenterX() - (chest.WIDTH/2));
             chest.node.setLayoutY(islandBounds.getMinY() - chest.HEIGHT);
         }
-        if (chance == 9) {
+        else if (chance == 8) {
             //TNTS
         }
         else {
-            int maxEnemies = (int) (island.WIDTH / 40);
+            int maxEnemies = (int) (island.WIDTH / 60);
             int count = Math.min(rand.nextInt(maxEnemies), 3);
             double gap = island.WIDTH / count;
             for (int i = 0; i < count; i++) {
@@ -67,6 +69,9 @@ public class GameState {
                 enemy.node.setLayoutX(islandBounds.getMinX() + 10 + gap*i);
             }
         }
+    }
+    public void setHeroStart(int pos){
+        heroStart = pos;
     }
 
     public Hero addHero(){
@@ -108,12 +113,11 @@ public class GameState {
 //        System.out.println(now);
         updateScoreBoard();
         updateCoinBoard();
-
         gamePane.setOnMouseClicked(event -> {
+            steps += 1;
             hero.setToMoveX(hero.getToMoveX() + 120);
             toMoveFrameX += Hero.forwardX;
             this.lastClicked = now;
-            this.steps += 1;
             Weapons newWeapon = hero.getCurrWeapon();
             if (newWeapon != null) {
                 Node node = newWeapon.getNode();
@@ -159,6 +163,18 @@ public class GameState {
         updateWeapons();
         updateEnemies();
 
+//        if ((hero.node.getLayoutX() > islands.get(1).getNode().getLayoutX() + 1000) && (hero.node.getLayoutX() + 2000 < islands.get(islands.size() - 1).getNode().getLayoutX())) {
+//            System.out.println("true");
+//            addALevel();
+//        }
+        Bounds firstBounds = getBoundswrtPane(islands.get(1).getPlatformNode());
+        Bounds heroBounds = getBoundswrtPane(hero.getNode());
+        Bounds lastBounds = getBoundswrtPane(islands.get(islands.size() - 1).getPlatformNode());
+        if (heroBounds.getMinX() - 500 > firstBounds.getMinX() && heroBounds.getMinX() + 500 < lastBounds.getMinX()) {
+            System.out.println("added level " + steps);
+
+            addALevel();
+        }
         //set hero to front
         hero.node.toFront();
     }
@@ -295,7 +311,7 @@ public class GameState {
         islands.add(island);
 
         gamePane.getChildren().add(island.getNode());
-        if (islands.size() > 7) {
+        if (islands.size() > 10) {
 
             Island removedIsland = islands.get(0);
             this.removeObject(removedIsland);
