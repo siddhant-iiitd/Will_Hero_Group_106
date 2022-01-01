@@ -102,7 +102,7 @@ class CoinChest extends Chests {
 
 }
 class WeaponsChest extends Chests {
-
+    private Weapons weapon;
     public WeaponsChest(Node node) {
         super(node);
     }

@@ -3,7 +3,9 @@ package com.example.will_hero;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
 
-public abstract class GameObjects {
+import java.io.Serializable;
+
+public abstract class GameObjects implements Serializable {
     protected Node node;
     protected Location location;
     protected final double WIDTH;
