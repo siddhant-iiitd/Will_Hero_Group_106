@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
@@ -27,7 +26,7 @@ public class GameState {
     private ArrayList<Chests> chests = new ArrayList<>();
     private ArrayList<Weapons> weapons = new ArrayList<>();
     private int steps = 0;
-    private int coins = 0;
+    private int coins = 0; // making this static cuz it also needs to be used in Chests.java
     private boolean hasEnded;
     private boolean hasRevived;
 
@@ -45,6 +44,10 @@ public class GameState {
         this.game = game;
     }
 
+    public void addCoins(int c){
+        coins+=c;
+    }
+
     public Hero addHero(){
         ImageView heroNode = imageViewLoader(Hero.path);
         Hero h = new Hero(heroNode, this.game);
@@ -60,6 +63,14 @@ public class GameState {
         gameObjects.add(c);
         chests.add(c);
         return c;
+    }
+
+    public TNT addTNT(){
+        TNT t = TNT.addTnt();
+        gamePane.getChildren().add(t.node);
+        gameObjects.add(t);
+        tnts.add(t);
+        return t;
     }
 
 
@@ -115,6 +126,11 @@ public class GameState {
 //
 //            openChestNode.setImage(image);
 
+        if(checkCollisionWithTNT()){
+            System.out.println("Hero is killed by TNT Explosion");
+            //hero.getNode().setVisible(false);
+            //visibility of the hero is set to false on collision w TNTs.
+        }
 
         checkCollisionWithEnemies();
         checkWeaponAttack();
@@ -233,15 +249,27 @@ public class GameState {
     private boolean checkCollisionWithChests(){
         for(Chests k: chests){
             if(k.isColliding(hero)){
-                ImageView chestNode = (ImageView) k.getNode();
+                k.setOpened();
 
+                ImageView chestNode = (ImageView) k.getNode();
                 //Image image = new Image("/com/example/will_hero/assets/ChestOpen.png");
                 //Image image = new Image("src/main/resources/com/example/will_hero/assets/ChestOpen.png");
+                k.open(this);
                 chestNode.setImage(Chests.openChest.getImage());
+                //GameState.coins=GameState.coins +10;
                 //chestNode.getImage()
 
                 return true;
 
+            }
+        }
+        return false;
+    }
+
+    private boolean checkCollisionWithTNT(){
+        for(TNT t: tnts){
+            if(t.isColliding(hero)){
+                return true;
             }
         }
         return false;

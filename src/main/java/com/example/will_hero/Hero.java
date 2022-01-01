@@ -22,6 +22,8 @@ public class Hero extends GameObjects{
 
     private final Helmet helmet;
 
+
+
     public Hero(Node node, Game game) {
         super(node);
         this.game = game;
@@ -29,6 +31,9 @@ public class Hero extends GameObjects{
     }
     public Helmet getHelmet(){
         return helmet;
+    }
+    public void setCurrWeapon(Weapons w){
+        this.helmet.setCurrWeapons(w);
     }
 
     public double getSpeedY(){
@@ -108,7 +113,7 @@ public class Hero extends GameObjects{
 
 class Helmet {
     private ArrayList<Weapons> WEAPONS_OPTIONS;
-    private Weapons currWeapon = new Shuriken();
+    private Weapons currWeapon = new Shuriken(); //changed to static cuz it is to be used in Chests
 
     public Helmet(){
         WEAPONS_OPTIONS = new ArrayList<>();

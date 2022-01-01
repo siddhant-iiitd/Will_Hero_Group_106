@@ -75,9 +75,22 @@ public class Game{
                 Bounds c1Bound = GameState.getBoundswrtPane(c1.node);
                 Bounds firstbound = GameState.getBoundswrtPane(is.getPlatformNode());
                 printBounds(c1Bound);
+                System.out.println("   ");
                 printBounds(is.islandBounds());
                 c1.node.setLayoutX(firstbound.getCenterX() - c1.WIDTH/2);
                 c1.node.setLayoutY(firstbound.getMinY()-c1.HEIGHT); //top of island
+
+            }
+
+            if(i==2){
+
+                TNT t1 = currentState.addTNT();
+                Bounds t1Bound = GameState.getBoundswrtPane(t1.node);
+                Bounds firstbound = GameState.getBoundswrtPane(is.getPlatformNode());
+                printBounds(t1Bound);
+                printBounds(is.islandBounds());
+                t1.node.setLayoutX(firstbound.getCenterX() - t1.WIDTH/2);
+                t1.node.setLayoutY(firstbound.getMinY()-t1.HEIGHT); //top of island
 
             }
             Bounds islandBounds = GameState.getBoundswrtPane(is.getPlatformNode());
