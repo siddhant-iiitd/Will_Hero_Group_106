@@ -60,13 +60,13 @@ public class GameState {
             //TNTS
         }
         else {
-            int maxEnemies = (int) (island.WIDTH / 60);
-            int count = Math.min(rand.nextInt(maxEnemies), 3);
+            int maxEnemies = (int) (island.WIDTH / 100);
+            int count = rand.nextInt(Math.min(maxEnemies, 3) + 1);
             double gap = island.WIDTH / count;
             for (int i = 0; i < count; i++) {
                 Enemies enemy = addEnemy();
                 enemy.node.setLayoutY(islandBounds.getMinY() - enemy.HEIGHT);
-                enemy.node.setLayoutX(islandBounds.getMinX() + 10 + gap*i);
+                enemy.node.setLayoutX(islandBounds.getMinX() + rand.nextInt(50) + (100 * i)  + 10);
             }
         }
     }
