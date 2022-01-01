@@ -18,7 +18,6 @@ import java.util.Random;
 
 public class GameState implements Serializable {
     private final Game game;
-
     Random rand = new Random();
 
     private ArrayList<GameObjects> gameObjects = new ArrayList<>();
@@ -29,9 +28,10 @@ public class GameState implements Serializable {
     private ArrayList<Weapons> weapons = new ArrayList<>();
     private int steps = 0;
     private int coins = 0; // making this static cuz it also needs to be used in Chests.java
-    private boolean hasEnded;
-    private boolean reachedEnd;
-    public boolean hasRevived;
+    protected boolean hasEnded;
+    protected boolean reachedEnd;
+    protected boolean hasRevived;
+    protected boolean hasWon;
     private int lastAdd = 0;
     private int heroStart;
 
@@ -239,13 +239,25 @@ public class GameState implements Serializable {
                 addALevel();
             }
         }
+
+        updateHero();
         //set hero to front
         hero.node.toFront();
         if (hasEnded){
-            endGame();
+            if (hasWon) {
+                winGame();
+            }
+            else {
+                endGame();
+            }
         }
     }
 
+    public void updateHero(){
+        if (hero.node.getLayoutY() > 500) {
+            hasEnded = true;
+        }
+    }
 
     private void updateEnemies(){
         ArrayList<Enemies> toRemove = new ArrayList<>();
@@ -285,6 +297,10 @@ public class GameState implements Serializable {
                     if (e instanceof Boss) {
                         Boss boss = (Boss) e;
                         boss.hit();
+                        if (boss.isKilled) {
+                            hasWon = true;
+                            hasEnded = true;
+                        }
                     }
                     else{
                         e.killed();
@@ -293,9 +309,15 @@ public class GameState implements Serializable {
             }
         }
     }
+
     public void endGame(){
         game.loseGame();
     }
+
+    public void winGame(){
+        game.winGame();
+    }
+
     private void checkCollisionWithEnemies(){
         for (Enemies e : enemies){
             if (e.isColliding(hero)){

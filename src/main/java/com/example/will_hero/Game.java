@@ -75,7 +75,10 @@ public class Game{
         gameController.closeRevivePane();
         if (currentState.getCoins() >=40){
             currentState.hasRevived = true;
+            currentState.hasEnded = false;
             currentState.setCoins(currentState.getCoins() - 40);
+            hero.node.setLayoutY(100);
+            hero.setSpeedY(0);
             animationTimer.start();
         }
         else {
