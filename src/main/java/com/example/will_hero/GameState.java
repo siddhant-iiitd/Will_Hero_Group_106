@@ -45,6 +45,30 @@ public class GameState {
         this.game = game;
     }
 
+    public void addALevel(){
+        Island island = addIsland();
+        Bounds islandBounds = getBoundswrtPane(island.getPlatformNode());
+        int chance = rand.nextInt(10);
+        if (chance == 9) {
+            Chests chest = addChests();
+            chest.node.setLayoutX(islandBounds.getCenterX() - (islandBounds.getWidth()/2));
+            chest.node.setLayoutY(islandBounds.getMinY() - chest.HEIGHT);
+        }
+        if (chance == 9) {
+            //TNTS
+        }
+        else {
+            int maxEnemies = (int) (island.WIDTH / 40);
+            int count = Math.min(rand.nextInt(maxEnemies), 3);
+            double gap = island.WIDTH / count;
+            for (int i = 0; i < count; i++) {
+                Enemies enemy = addEnemy();
+                enemy.node.setLayoutY(islandBounds.getMinY() - enemy.HEIGHT);
+                enemy.node.setLayoutX(islandBounds.getMinX() + 10 + gap*i);
+            }
+        }
+    }
+
     public Hero addHero(){
         ImageView heroNode = imageViewLoader(Hero.path);
         Hero h = new Hero(heroNode, this.game);

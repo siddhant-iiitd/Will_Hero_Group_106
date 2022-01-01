@@ -108,7 +108,7 @@ public class Hero extends GameObjects{
 
 class Helmet {
     private ArrayList<Weapons> WEAPONS_OPTIONS;
-    private Weapons currWeapon = new Shuriken();
+    private Weapons currWeapon = null;
 
     public Helmet(){
         WEAPONS_OPTIONS = new ArrayList<>();

@@ -4,6 +4,8 @@ import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 
+import java.util.Random;
+
 public abstract class Chests extends GameObjects{
     public static final String path = "AssetFXMLFiles/Chest.fxml";
     public static ImageView openChest= GameState.imageViewLoader("AssetFXMLFiles/ChestOpen.fxml");
@@ -44,8 +46,17 @@ public abstract class Chests extends GameObjects{
 
     public static Chests addChests(){
         ImageView chestnode = GameState.imageViewLoader(path);
-        CoinChest chest1= new CoinChest(chestnode);
-        return chest1;
+        Random rand = new Random();
+        Chests chest = new CoinChest(chestnode);
+        return chest;
+
+//        if (rand.nextBoolean()) {
+//            chest = new CoinChest(chestnode);
+//        }
+//        else {
+//            chest = new WeaponsChest(chestnode);
+//        }
+//        return chest;
     }
 }
 
@@ -62,7 +73,7 @@ class CoinChest extends Chests {
 
 }
 class WeaponsChest extends Chests {
-
+    private Weapons weapon;
     public WeaponsChest(Node node) {
         super(node);
     }

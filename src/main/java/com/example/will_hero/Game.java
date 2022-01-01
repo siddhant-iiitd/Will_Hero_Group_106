@@ -54,43 +54,60 @@ public class Game{
     }
 
     // function executed on starting a game
-    public void startGame(MouseEvent event) {
+//    public void startGame(MouseEvent event) {
+//        this.viewScene(event);
+//        this.setupFXMLNodes();
+//        //currentState.enableForward();
+//
+//        //adding the first island
+//        Island first = Island.createIsland(Island.paths[0]);
+//        currentState.addIsland(first);
+//        hero.getNode().setLayoutX(215);
+//        hero.getNode().setLayoutY(GameState.getBoundswrtPane(first.getPlatformNode()).getMinY() - hero.HEIGHT);
+//        hero.getNode().toFront();
+//
+//        // for islands 2 to (i+1)
+//        for (int i = 0; i < 5; i++) {
+//            Island is = currentState.addIsland();
+//            if(i==0){
+//
+//                Chests c1 = currentState.addChests();
+//                Bounds c1Bound = GameState.getBoundswrtPane(c1.node);
+//                Bounds firstbound = GameState.getBoundswrtPane(is.getPlatformNode());
+//                printBounds(c1Bound);
+//                printBounds(is.islandBounds());
+//                c1.node.setLayoutX(firstbound.getCenterX() - c1.WIDTH/2);
+//                c1.node.setLayoutY(firstbound.getMinY()-c1.HEIGHT); //top of island
+//
+//            }
+//            Bounds islandBounds = GameState.getBoundswrtPane(is.getPlatformNode());
+//            Enemies enemy = currentState.addEnemy();
+//            enemy.getNode().setLayoutX(islandBounds.getCenterX());
+//            enemy.getNode().setLayoutY(islandBounds.getMinY() - enemy.HEIGHT);
+//        }
+//
+//
+//        //c1.node.setLayoutY(first.islandBounds().getCenterY());
+//
+//        animationTimer.start();
+//
+//    }
+
+    public void startGame(MouseEvent event){
         this.viewScene(event);
         this.setupFXMLNodes();
-        //currentState.enableForward();
 
-        //adding the first island
+        //adding the first island and placing hero on it
         Island first = Island.createIsland(Island.paths[0]);
         currentState.addIsland(first);
         hero.getNode().setLayoutX(215);
         hero.getNode().setLayoutY(GameState.getBoundswrtPane(first.getPlatformNode()).getMinY() - hero.HEIGHT);
-        hero.getNode().toFront();
 
-        // for islands 2 to (i+1)
         for (int i = 0; i < 5; i++) {
-            Island is = currentState.addIsland();
-            if(i==0){
-
-                Chests c1 = currentState.addChests();
-                Bounds c1Bound = GameState.getBoundswrtPane(c1.node);
-                Bounds firstbound = GameState.getBoundswrtPane(is.getPlatformNode());
-                printBounds(c1Bound);
-                printBounds(is.islandBounds());
-                c1.node.setLayoutX(firstbound.getCenterX() - c1.WIDTH/2);
-                c1.node.setLayoutY(firstbound.getMinY()-c1.HEIGHT); //top of island
-
-            }
-            Bounds islandBounds = GameState.getBoundswrtPane(is.getPlatformNode());
-            Enemies enemy = currentState.addEnemy();
-            enemy.getNode().setLayoutX(islandBounds.getCenterX());
-            enemy.getNode().setLayoutY(islandBounds.getMinY() - enemy.HEIGHT);
+            currentState.addALevel();
         }
 
-
-        //c1.node.setLayoutY(first.islandBounds().getCenterY());
-
         animationTimer.start();
-
     }
 
     public void pauseGame(){
@@ -99,7 +116,6 @@ public class Game{
     }
     public void resumeGame(){
         animationTimer.start();
-
     }
 
     //helper method to set up the animation timer which runs frame by frame
