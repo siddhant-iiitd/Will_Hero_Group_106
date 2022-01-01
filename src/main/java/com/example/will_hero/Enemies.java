@@ -4,11 +4,11 @@ import javafx.geometry.Bounds;
 import javafx.scene.Node;
 
 public abstract class Enemies extends GameObjects {
-    private double speedX = 5;
-    private double speedY = 0;
-    private double toMoveX = 0;
+    protected double speedX = 5;
+    protected double speedY = 0;
+    protected double toMoveX = 0;
     private int delayY = 0;
-    private long lastLanded = Long.MAX_VALUE;
+    protected long lastLanded = Long.MAX_VALUE;
     public boolean onIsland = false;
     protected Enemies(Node node) {
         super(node);
@@ -60,11 +60,11 @@ public abstract class Enemies extends GameObjects {
         this.isKilled = true;
     }
 
-    private void collide(){
+    public void collide(){
         toMoveX = 100;
     }
 
-    private void killHero(Hero hero){
+    public void killHero(Hero hero){
         System.out.println("hero is killed");
     }
 
@@ -114,7 +114,7 @@ class RedOrc extends Enemies {
 }
 
 class GreenOrc extends Enemies {
-    public static final String path = "AssetFXMLFiles/RedOrc.fxml";
+    public static final String path = "AssetFXMLFiles/GreenOrc.fxml";
 
 
     public GreenOrc(Node node) {
@@ -128,14 +128,65 @@ class GreenOrc extends Enemies {
 }
 
 class Boss extends Enemies {
+    private int hits = 0;
     public static final String path = "AssetFXMLFiles/Boss.fxml";
 
     public Boss(Node node) {
         super(node);
+        speedY = 3;
+        speedX = 3;
     }
 
     @Override
-    public Boolean isColliding(Hero hero) {
+    public void jump(long now){
+        if (now - lastLanded > 100000000) {
+            lastLanded = Long.MAX_VALUE;
+            onIsland = false;
+            this.speedY = 3;
+            return;
+        }
+        onIsland = true;
+        lastLanded = Math.min(now, lastLanded);
+    }
+
+    @Override
+    public void collide(){
+        hits += 1;
+        if (hits >= 10) {
+            killed();
+        }
+        toMoveX = 10;
+
+    }
+    public void hit(){
+        hits+=1;
+        if (hits >= 10) {
+            killed();
+        }
+    }
+    @Override
+    public Boolean isColliding(Hero hero){
+        Bounds enemyBounds = GameState.getBoundswrtPane(node);
+        Bounds heroBounds = GameState.getBoundswrtPane(hero.getNode());
+        if (enemyBounds.intersects(heroBounds)) {
+            //collision from bottom
+            double difference = enemyBounds.getMaxY() - heroBounds.getMinY();
+            if (difference < 5){
+                killHero(hero);
+                return true;
+            }
+
+            hero.collideEnemy();
+            collide();
+            return false;
+        }
         return false;
     }
+
+
+//
+//    @Override
+//    public Boolean isColliding(Hero hero) {
+//        return false;
+//    }
 }

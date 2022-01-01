@@ -15,7 +15,7 @@ public class Island extends GameObjects {
             "AssetFXMLFiles/Island4.fxml",
             "AssetFXMLFiles/Island5.fxml"
     };
-    private ImageView platformNode;
+    private Node platformNode;
 
     public Island(Node node) {
         super(node);
@@ -27,9 +27,13 @@ public class Island extends GameObjects {
         return platformNode.getParent().getBoundsInParent();
     }
 
-    public ImageView getPlatformNode() {
+    public Node getPlatformNode() {
         return this.platformNode;
     }
+    public void setPlatformNode(Node node){
+        platformNode = node;
+    }
+
 
     //helper static function to create a new random island
     public static Island createIsland(){

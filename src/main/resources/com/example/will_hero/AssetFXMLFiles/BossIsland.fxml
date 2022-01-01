@@ -5,12 +5,11 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="576.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Group layoutX="214.0" layoutY="139.0">
          <children>
-            <ImageView fitHeight="10.0" fitWidth="600.0" layoutX="36.0" layoutY="3.0" pickOnBounds="true">
+            <ImageView fitHeight="10.0" fitWidth="600.0" layoutX="35.0" layoutY="3.0" pickOnBounds="true">
                <image>
                   <Image url="@../images/platform.png" />
                </image>

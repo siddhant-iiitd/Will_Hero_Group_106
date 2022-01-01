@@ -61,7 +61,7 @@ public class GameState implements Serializable {
             chest.node.setLayoutX(islandBounds.getCenterX() - (chest.WIDTH/2));
             chest.node.setLayoutY(islandBounds.getMinY() - chest.HEIGHT);
         }
-        else if (chance <= 8) {
+        else if (chance == 8) {
             TNT t = addTNT();
             t.node.setLayoutX(islandBounds.getCenterX() - (t.WIDTH/2));
             t.node.setLayoutY(islandBounds.getMinY() - t.HEIGHT);
@@ -82,13 +82,17 @@ public class GameState implements Serializable {
     private void addBossLevel(){
         Node bossNode = imageViewLoader(Boss.path);
         Boss boss = new Boss(bossNode);
+        gamePane.getChildren().add(bossNode);
         enemies.add(boss);
         addGameObject(boss);
-        //Island island = Island.createIsland("AssetFXMLFiles/BossIsland.fxml");
-//        addIsland(island);
-//        Bounds islandBounds = getBoundswrtPane(island.node);
-//        boss.node.setLayoutX(islandBounds.getMinX() + 300);
-//        boss.node.setLayoutY();
+        Island island = Island.createIsland("AssetFXMLFiles/BossIsland.fxml");
+        addIsland(island);
+        island.setPlatformNode(island.node);
+        island.getNode().setLayoutX(island.getNode().getLayoutX() + 50);
+        island.getNode().setLayoutY(300);
+        Bounds islandBounds = getBoundswrtPane(island.node);
+        boss.node.setLayoutX(islandBounds.getMinX() + 300);
+        boss.node.setLayoutY(islandBounds.getMinY() - boss.HEIGHT);
     }
 
     public void setHeroStart(int pos){
@@ -129,12 +133,22 @@ public class GameState implements Serializable {
     }
 
     public Enemies addEnemy(){
-        ImageView enemyNode = imageViewLoader(RedOrc.path);
-        RedOrc e = new RedOrc(enemyNode);
-        gamePane.getChildren().add(enemyNode);
-        enemies.add(e);
-        addGameObject(e);
-        return e;
+        if (rand.nextBoolean()) {
+            ImageView enemyNode = imageViewLoader(RedOrc.path);
+            RedOrc e = new RedOrc(enemyNode);
+            gamePane.getChildren().add(enemyNode);
+            enemies.add(e);
+            addGameObject(e);
+            return e;
+        }
+        else{
+            ImageView enemyNode = imageViewLoader(GreenOrc.path);
+            GreenOrc e = new GreenOrc(enemyNode);
+            gamePane.getChildren().add(enemyNode);
+            enemies.add(e);
+            addGameObject(e);
+            return e;
+        }
     }
 
     // method which runs for each frame in animation timer
@@ -211,7 +225,7 @@ public class GameState implements Serializable {
         Bounds lastBounds = getBoundswrtPane(islands.get(islands.size() - 1).getPlatformNode());
         if (!reachedEnd && (heroBounds.getMinX() - 500 > firstBounds.getMinX() && heroBounds.getMinX() + 500 < lastBounds.getMinX())) {
             System.out.println("added level " + steps);
-            if (steps >= 100) {
+            if (steps >= 90) {
                 reachedEnd = true;
                 addBossLevel();
             }
@@ -255,7 +269,13 @@ public class GameState implements Serializable {
         for (Weapons w: weapons){
             for (Enemies e : enemies) {
                 if (w.intersectsWithEnemy(e)){
-                    e.killed();
+                    if (e instanceof Boss) {
+                        Boss boss = (Boss) e;
+                        boss.hit();
+                    }
+                    else{
+                        e.killed();
+                    }
                 }
             }
         }
