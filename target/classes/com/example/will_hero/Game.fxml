@@ -135,5 +135,86 @@
             </Text>
          </children>
       </AnchorPane>
+      <AnchorPane fx:id="winPane" layoutX="160.0" layoutY="600.0" prefHeight="200.0" prefWidth="400.0" styleClass="pause-pane" stylesheets="@styles.css">
+         <children>
+            <ImageView fx:id="homeButtonWinPane" fitHeight="56.0" fitWidth="58.0" layoutX="170.0" layoutY="132.0" onMouseClicked="#goHome" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/home1.png" />
+               </image>
+            </ImageView>
+            <Text fill="WHITE" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="YOU WIN!!!" textAlignment="CENTER" wrappingWidth="400.0">
+               <font>
+                  <Font name="Press Start 2P Regular" size="36.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CONGRATS!" textAlignment="CENTER" wrappingWidth="400.0">
+               <font>
+                  <Font name="Press Start 2P Regular" size="32.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="losePane" layoutX="160.0" layoutY="600.0" prefHeight="200.0" prefWidth="400.0" styleClass="pause-pane" stylesheets="@styles.css">
+         <children>
+            <ImageView fx:id="homeButtonLosePane" fitHeight="56.0" fitWidth="58.0" layoutX="170.0" layoutY="132.0" onMouseClicked="#goHome" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/home1.png" />
+               </image>
+            </ImageView>
+            <Text fill="WHITE" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You lose." textAlignment="CENTER" wrappingWidth="400.0">
+               <font>
+                  <Font name="Press Start 2P Regular" size="36.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Oh no." textAlignment="CENTER" wrappingWidth="400.0">
+               <font>
+                  <Font name="Press Start 2P Regular" size="32.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="revivePane" layoutX="160.0" layoutY="600.0" prefHeight="200.0" prefWidth="400.0" styleClass="pause-pane" stylesheets="@styles.css">
+         <children>
+            <ImageView fx:id="homeButtonRevivePane" fitHeight="56.0" fitWidth="58.0" layoutX="299.0" layoutY="105.0" onMouseClicked="#goHome" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/home1.png" />
+               </image>
+            </ImageView>
+            <Text fill="WHITE" layoutX="-1.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Revive for 40 coins" textAlignment="CENTER" wrappingWidth="205.44686889648438">
+               <font>
+                  <Font name="Press Start 2P Regular" size="26.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You died!" textAlignment="CENTER" wrappingWidth="400.0">
+               <font>
+                  <Font name="Press Start 2P Regular" size="32.0" />
+               </font>
+            </Text>
+            <ImageView fx:id="reviveButton" fitHeight="60.0" fitWidth="54.0" layoutX="199.0" layoutY="107.0" onMouseClicked="#useRevive" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/Coin.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="unablePane" layoutX="170.0" layoutY="610.0" prefHeight="200.0" prefWidth="400.0" styleClass="pause-pane" stylesheets="@styles.css">
+         <children>
+            <ImageView fx:id="homeButtonUnablePane" fitHeight="56.0" fitWidth="58.0" layoutX="170.0" layoutY="132.0" onMouseClicked="#goHome" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/home1.png" />
+               </image>
+            </ImageView>
+            <Text fill="WHITE" layoutX="26.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Not enough coins" textAlignment="CENTER" wrappingWidth="354.9766845703125">
+               <font>
+                  <Font name="Press Start 2P Regular" size="25.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Oh no." textAlignment="CENTER" wrappingWidth="400.0">
+               <font>
+                  <Font name="Press Start 2P Regular" size="32.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

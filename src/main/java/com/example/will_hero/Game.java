@@ -32,6 +32,20 @@ public class Game{
         return this.currentState;
     }
 
+    public void loseGame(){
+        animationTimer.stop();
+        if (currentState.hasRevived) {
+            gameController.openLosePane();
+        }
+        else{
+            gameController.openRevivePane();
+        }
+    }
+
+    public void winGame(){
+        animationTimer.stop();
+        gameController.openWinPane();
+    }
 
 
     //helper function to view the game scene
@@ -57,6 +71,17 @@ public class Game{
         this.hero = currentState.addHero();
     }
 
+    public void revive(){
+        gameController.closeRevivePane();
+        if (currentState.getCoins() >=40){
+            currentState.hasRevived = true;
+            currentState.setCoins(currentState.getCoins() - 40);
+            animationTimer.start();
+        }
+        else {
+            gameController.openUnablePane();
+        }
+    }
 
     public void startGame(MouseEvent event){
         this.viewScene(event);
@@ -75,6 +100,8 @@ public class Game{
         }
 
         animationTimer.start();
+
+//        winGame();
     }
 
     public void pauseGame(){

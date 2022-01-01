@@ -30,10 +30,26 @@ public class GameController implements Initializable {
     @FXML private Text coinBoard;
     @FXML private Button pauseBtn;
 
+    //Unable Pane
+    @FXML private AnchorPane unablePane;
+    @FXML private ImageView homeButtonUnablePane;
+
+    //Win Menu
+    @FXML private AnchorPane winPane;
+    @FXML private ImageView homeButtonWinPane;
+
+    //Lose Pane
+    @FXML private AnchorPane losePane;
+    @FXML private ImageView homeButtonLosePane;
 
     // Save Menu
     @FXML private AnchorPane savePane;
     @FXML private ImageView closeButtonSavePane;
+
+    //Revive Menu
+    @FXML private AnchorPane revivePane;
+    @FXML private ImageView homeButtonRevivePane;
+    @FXML private ImageView reviveButton;
 
     //Pause Menu
     @FXML private AnchorPane pauseMenu;
@@ -58,8 +74,56 @@ public class GameController implements Initializable {
         this.game = game;
         gameState.setupFXMLNodes(gamePane, scoreBoard, coinBoard);
     }
+    public void openUnablePane(){
+        unablePane.toFront();
+        TranslateTransition transition = new TranslateTransition();
+        transition.setNode(unablePane);
+        transition.setDuration(Duration.millis(1000));
+        transition.setByY(-386);
+        transition.play();
+    }
+
+    public void openRevivePane(){
+        revivePane.toFront();
+        TranslateTransition transition = new TranslateTransition();
+        transition.setNode(revivePane);
+        transition.setDuration(Duration.millis(1000));
+        transition.setByY(-386);
+        transition.play();
+    }
+
+    public void closeRevivePane(){
+        revivePane.toFront();
+        TranslateTransition transition = new TranslateTransition();
+        transition.setNode(revivePane);
+        transition.setDuration(Duration.millis(1000));
+        transition.setByY(386);
+        transition.play();
+    }
+
+    public void useRevive(MouseEvent event){
+        game.revive();
+    }
 
 
+    public void openWinPane(){
+        winPane.toFront();
+        TranslateTransition transition = new TranslateTransition();
+        transition.setNode(winPane);
+        transition.setDuration(Duration.millis(1000));
+        transition.setByY(-386);
+        transition.play();
+    }
+
+    public void openLosePane(){
+        System.out.println("this is happening");
+        losePane.toFront();
+        TranslateTransition transition = new TranslateTransition();
+        transition.setNode(losePane);
+        transition.setDuration(Duration.millis(1000));
+        transition.setByY(-386);
+        transition.play();
+    }
 
     public void PauseButtonClicked(MouseEvent Event) {
 

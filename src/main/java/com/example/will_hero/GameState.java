@@ -31,7 +31,7 @@ public class GameState implements Serializable {
     private int coins = 0; // making this static cuz it also needs to be used in Chests.java
     private boolean hasEnded;
     private boolean reachedEnd;
-    private boolean hasRevived;
+    public boolean hasRevived;
     private int lastAdd = 0;
     private int heroStart;
 
@@ -49,6 +49,12 @@ public class GameState implements Serializable {
         this.game = game;
     }
 
+    public int getCoins(){
+        return coins;
+    }
+    public void setCoins(int c){
+        coins=c;
+    }
     public void addCoins(int c){
         coins+=c;
     }
@@ -235,13 +241,20 @@ public class GameState implements Serializable {
         }
         //set hero to front
         hero.node.toFront();
+        if (hasEnded){
+            endGame();
+        }
     }
 
 
     private void updateEnemies(){
         ArrayList<Enemies> toRemove = new ArrayList<>();
         for (Enemies e: enemies) {
+            if (e.node.getLayoutY() > 500) {
+                e.isKilled = true;
+            }
             if (e.isKilled){
+                coins += 5;
                 toRemove.add(e);
             }
         }
@@ -281,12 +294,12 @@ public class GameState implements Serializable {
         }
     }
     public void endGame(){
-        game.pauseGame();
+        game.loseGame();
     }
     private void checkCollisionWithEnemies(){
         for (Enemies e : enemies){
             if (e.isColliding(hero)){
-                endGame();
+                hasEnded = true;
             }
         }
     }

@@ -149,7 +149,7 @@ class Boss extends Enemies {
         lastLanded = Math.min(now, lastLanded);
     }
 
-    @Override
+
     public void collide(){
         hits += 1;
         if (hits >= 10) {
