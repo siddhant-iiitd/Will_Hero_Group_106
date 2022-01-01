@@ -61,7 +61,10 @@ public class GameState implements Serializable {
             chest.node.setLayoutX(islandBounds.getCenterX() - (chest.WIDTH/2));
             chest.node.setLayoutY(islandBounds.getMinY() - chest.HEIGHT);
         }
-        else if (chance == 8) {
+        else if (chance <= 8) {
+            TNT t = addTNT();
+            t.node.setLayoutX(islandBounds.getCenterX() - (t.WIDTH/2));
+            t.node.setLayoutY(islandBounds.getMinY() - t.HEIGHT);
             //TNTS
         }
         else {
@@ -171,6 +174,11 @@ public class GameState implements Serializable {
 
         if(checkCollisionWithTNT()){
             System.out.println("Hero is killed by TNT Explosion");
+
+
+            // change in pic
+            // fade transition
+            // Wait for 2 sec--> check if hero is in radius--> if yes, hero dies.
             //hero.getNode().setVisible(false);
             //visibility of the hero is set to false on collision w TNTs.
         }
@@ -331,6 +339,9 @@ public class GameState implements Serializable {
     private boolean checkCollisionWithTNT(){
         for(TNT t: tnts){
             if(t.isColliding(hero)){
+                ImageView tntNode = (ImageView) t.getNode();
+
+                tntNode.setImage(TNT.explodingTNT.getImage());
                 return true;
             }
         }

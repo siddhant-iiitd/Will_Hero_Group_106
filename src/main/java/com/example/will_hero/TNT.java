@@ -7,6 +7,8 @@ import javafx.scene.image.ImageView;
 public class TNT extends GameObjects{
     public static final String path = "AssetFXMLFiles/TNT.fxml";
 
+    public static ImageView explodingTNT= GameState.imageViewLoader("AssetFXMLFiles/Exploding.fxml");
+
     protected TNT(Node node) {
         super(node);
     }
