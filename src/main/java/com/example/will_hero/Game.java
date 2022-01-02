@@ -32,6 +32,7 @@ public class Game{
 
     public void loseGame(){
         animationTimer.stop();
+        currentState.disableGamePane();
         if (currentState.hasRevived) {
             gameController.openLosePane();
         }
@@ -51,6 +52,7 @@ public class Game{
 
     public void winGame(){
         animationTimer.stop();
+        currentState.disableGamePane();
         gameController.openWinPane();
     }
 

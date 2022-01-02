@@ -91,6 +91,7 @@ class CoinChest extends Chests {
     public void open(GameState currState) {
         //GameState.coins = GameState.coins +10; //10 coins are gained on opening the CoinChest
         currState.addCoins(10);
+        Sounds.coin();
     }
 
 }

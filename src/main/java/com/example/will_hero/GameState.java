@@ -171,6 +171,7 @@ public class GameState implements Serializable {
         updateCoinBoard();
         gamePane.setOnMouseClicked(event -> {
             steps += 1;
+            Sounds.swoosh();
             hero.setToMoveX(hero.getToMoveX() + 120);
             toMoveFrameX += Hero.forwardX;
             this.lastClicked = now;
@@ -254,6 +255,7 @@ public class GameState implements Serializable {
                 winGame();
             }
             else {
+                Sounds.dead();
                 endGame();
             }
         }
