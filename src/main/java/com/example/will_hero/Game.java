@@ -96,6 +96,10 @@ public class Game{
         }
     }
 
+    public void startEndlessGame(MouseEvent event) {
+        currentState.endless = true;
+        startGame(event);
+    }
     public void startGame(MouseEvent event){
         this.viewScene(event);
         this.setupFXMLNodes();

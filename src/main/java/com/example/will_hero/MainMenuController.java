@@ -29,6 +29,7 @@ public class MainMenuController implements Initializable {
     @FXML private ImageView newGameButton;
     @FXML private ImageView loadGameButton;
     @FXML private ImageView exitGameButton;
+    @FXML private ImageView endlessButton;
 
     @FXML private AnchorPane loadMenu;
     @FXML private Text loadText;
@@ -75,13 +76,13 @@ public class MainMenuController implements Initializable {
 
 
     public void newGame(MouseEvent event) throws IOException {
-//        Parent root = FXMLLoader.load(getClass().getResource("RunningGame.fxml"));
-//        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-//        scene = new Scene(root);
-//        stage.setScene(scene);
-//        stage.show();
         Game game = new Game();
         game.startGame(event);
+    }
+
+    public void newEndlessGame(MouseEvent event) throws IOException {
+        Game game = new Game();
+        game.startEndlessGame(event);
     }
 
     @Override

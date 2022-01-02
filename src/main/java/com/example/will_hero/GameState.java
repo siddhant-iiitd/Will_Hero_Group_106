@@ -38,6 +38,7 @@ public class GameState implements Serializable {
     private int heroStart;
     protected boolean specialAbility = false;
     protected long abilityActivated;
+    protected boolean endless = false;
 
     private long lastClicked = 0;
     public double toMoveFrameX = 0;
@@ -239,7 +240,7 @@ public class GameState implements Serializable {
         Bounds lastBounds = getBoundswrtPane(islands.get(islands.size() - 1).getPlatformNode());
         if (!reachedEnd && (heroBounds.getMinX() - 500 > firstBounds.getMinX() && heroBounds.getMinX() + 500 < lastBounds.getMinX())) {
             System.out.println("added level " + steps);
-            if (steps >= 90) {
+            if (!endless && steps >= 90) {
                 reachedEnd = true;
                 addBossLevel();
             }
