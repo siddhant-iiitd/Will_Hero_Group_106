@@ -39,8 +39,11 @@ public class Island extends GameObjects {
     //helper static function to create a new random island
     public static Island createIsland(){
         Random rand = new Random();
-        String path = Island.paths[rand.nextInt(5)];
-        return createIsland(path);
+        int i = rand.nextInt(5);
+        String path = Island.paths[i];
+        Island is = createIsland(path);
+        is.node.setId("island" + i);
+        return is;
     }
 
     //helper static function to create a new island with given path

@@ -136,6 +136,7 @@ public class GameController implements Initializable {
         transition.setDuration(Duration.millis(1000));
         transition.setByY(386);
         transition.play();
+        game.resumeGame();
     }
 
     public void openSavePane(MouseEvent event) {
@@ -150,6 +151,7 @@ public class GameController implements Initializable {
         transition2.setDuration(Duration.millis(1000));
         transition2.setByY(-386);
         transition2.play();
+        game.saveGame();
     }
 
 
@@ -163,6 +165,7 @@ public class GameController implements Initializable {
         transition.play();
 
     }
+
 
     public void playGame(MouseEvent event) throws IOException {
         TranslateTransition transition = new TranslateTransition();

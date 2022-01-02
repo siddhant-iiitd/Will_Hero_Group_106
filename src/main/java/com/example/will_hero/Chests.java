@@ -18,8 +18,7 @@ public abstract class Chests extends GameObjects{
 
     public Chests(Node node) {
         super(node);
-
-
+        node.setId("chest");
     }
 
 

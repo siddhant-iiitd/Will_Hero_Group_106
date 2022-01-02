@@ -61,6 +61,11 @@ public class MainMenuController implements Initializable {
         transition.play();
     }
 
+    public void loadGame(MouseEvent event) {
+        Game game = new Game();
+        game.loadGame(event);
+    }
+
 
 
     public void newGame(MouseEvent event) throws IOException {

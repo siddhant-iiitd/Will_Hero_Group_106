@@ -107,6 +107,7 @@ class RedOrc extends Enemies {
 
     public RedOrc(Node node) {
         super(node);
+        node.setId("redorc");
     }
 
 //    @Override
@@ -122,6 +123,7 @@ class GreenOrc extends Enemies {
 
     public GreenOrc(Node node) {
         super(node);
+        node.setId("greenorc");
     }
 
 //    @Override
@@ -137,6 +139,7 @@ class Boss extends Enemies {
 
     public Boss(Node node) {
         super(node);
+        node.setId("boss");
         speedY = 3;
         speedX = 3;
     }

@@ -44,6 +44,7 @@ class Shuriken extends Weapons{
 
     public Shuriken() {
         super(GameState.imageViewLoader(path));
+        node.setId("shuriken");
         this.speedX = 15;
     }
 
@@ -55,6 +56,7 @@ class Knife extends Weapons{
 
     public Knife() {
         super(GameState.imageViewLoader(path));
+        node.setId("knife");
         this.speedX = 10;
     }
 }

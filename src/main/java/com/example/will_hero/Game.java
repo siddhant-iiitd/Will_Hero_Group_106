@@ -10,7 +10,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.*;
-import java.util.ArrayList;
 
 public class Game{
     private GameController gameController;
@@ -25,7 +24,6 @@ public class Game{
     public Game() {
         currentState = new GameState(this);
         setAnimationTimer();
-
     }
 
     public GameState getCurrentState(){
@@ -33,12 +31,6 @@ public class Game{
     }
 
     public void loseGame(){
-        try {
-            serialise();
-        }
-        catch (IOException e) {
-            System.out.println("IO Exception");
-        }
         animationTimer.stop();
         if (currentState.hasRevived) {
             gameController.openLosePane();
@@ -46,6 +38,15 @@ public class Game{
         else{
             gameController.openRevivePane();
         }
+    }
+
+    public void saveGame(){
+        try {
+            serialise();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void winGame(){
@@ -98,6 +99,7 @@ public class Game{
 
         //adding the first island and placing hero on it
         Island first = Island.createIsland(Island.paths[0]);
+        first.node.setId("island0");
         currentState.addIsland(first);
         hero.getNode().setLayoutX(215);
         System.out.println((int) hero.getNode().getLayoutX());
@@ -134,6 +136,7 @@ public class Game{
     }
 
     public void serialise() throws IOException{
+        currentState.prepareSerialization();
         ObjectOutputStream out = null;
         try {
             out = new ObjectOutputStream(new FileOutputStream("gamestate.txt"));
@@ -148,7 +151,7 @@ public class Game{
         }
     }
 
-    public GameState deserialise() throws IOException, ClassNotFoundException {
+    public GameState deserialize() throws IOException, ClassNotFoundException {
         ObjectInputStream in = null;
         GameState state = null;
         try {
@@ -159,6 +162,22 @@ public class Game{
             in.close();
         }
         return state;
+    }
+
+    public void loadGame(MouseEvent event){
+        this.viewScene(event);
+        try {
+            currentState = deserialize();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        this.gameController.setupFXMLNodes(this, currentState);
+        currentState.setGame(this);
+        currentState.afterDeserialization();
+        setAnimationTimer();
+        animationTimer.start();
     }
 
 

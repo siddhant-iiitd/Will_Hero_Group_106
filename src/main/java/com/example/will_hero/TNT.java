@@ -12,6 +12,7 @@ public class TNT extends GameObjects{
 
     protected TNT(Node node) {
         super(node);
+        node.setId("tnt");
     }
 
     @Override

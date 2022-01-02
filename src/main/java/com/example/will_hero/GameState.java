@@ -19,7 +19,7 @@ import java.util.Random;
 public class GameState implements Serializable {
     static final long serialVersionUID = 3829L;
 
-    private transient final Game game;
+    private transient Game game;
     Random rand = new Random();
 
     private ArrayList<GameObjects> gameObjects = new ArrayList<>();
@@ -49,6 +49,10 @@ public class GameState implements Serializable {
 
     public GameState(Game game) {
         this.game = game;
+    }
+
+    public void setGame(Game g) {
+        this.game = g;
     }
 
     public int getCoins(){
@@ -98,6 +102,7 @@ public class GameState implements Serializable {
         island.setPlatformNode(island.node);
         island.getNode().setLayoutX(island.getNode().getLayoutX() + 50);
         island.getNode().setLayoutY(300);
+        island.node.setId("bossisland");
         Bounds islandBounds = getBoundswrtPane(island.node);
         boss.node.setLayoutX(islandBounds.getMinX() + 300);
         boss.node.setLayoutY(islandBounds.getMinY() - boss.HEIGHT);
@@ -351,6 +356,34 @@ public class GameState implements Serializable {
         }
     }
 
+    public void prepareSerialization(){
+        for (GameObjects g : gameObjects) {
+            g.updateInfo();
+        }
+    }
+
+    public void afterDeserialization(){
+        for (GameObjects g: gameObjects) {
+            System.out.println(g.getClass());
+            Node n = g.restoreNode();
+            gamePane.getChildren().add(n);
+            if (g instanceof Island) {
+                Island is = (Island) g;
+                if (n.getId().equals("bossisland")){
+                    is.setPlatformNode(n);
+                }
+                else{
+                    Group islandGroup = (Group) n;
+                    is.setPlatformNode(islandGroup.getChildren().get(0));
+                }
+            }
+            else if (g instanceof Hero) {
+                Hero h = (Hero) g;
+                h.setGame(this.game);
+            }
+        }
+    }
+
     private void checkEnemyCollisionWithIslands(long now){
         for (Island i : islands) {
             for (Enemies e : enemies) {
@@ -499,6 +532,16 @@ public class GameState implements Serializable {
         }
         Group group = (Group) root.getChildren().get(0);
         return group;
+    }
+    public static Node nodeLoader(String path) {
+        AnchorPane root = null;
+        try {
+            root = FXMLLoader.<AnchorPane>load(WillHeroApplication.class.getResource(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Node node = (Node) root.getChildren().get(0);
+        return node;
     }
 
     //helper function to load imageview from fxml file with given path

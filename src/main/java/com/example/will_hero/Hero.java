@@ -1,6 +1,7 @@
 package com.example.will_hero;
 
 import javafx.scene.Node;
+import javafx.scene.image.ImageView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import java.util.Random;
 
 public class Hero extends GameObjects{
     static final long serialVersionUID = 435L;
-    private transient final Game game;
+    private transient Game game;
     public static final String path = "AssetFXMLFiles/Hero.fxml";
     public static final int forwardX = 120;
     private final int jumpY = 100;
@@ -28,6 +29,11 @@ public class Hero extends GameObjects{
         super(node);
         this.game = game;
         helmet = new Helmet();
+        node.setId("hero");
+    }
+
+    public void setGame(Game g){
+        this.game = g;
     }
 
     public Helmet getHelmet(){

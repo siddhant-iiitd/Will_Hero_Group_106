@@ -120,7 +120,7 @@
                </font>
             </Text>
             <ListView fx:id="games" editable="true" layoutX="81.0" layoutY="100.0" prefHeight="201.0" prefWidth="331.0" />
-            <Text fx:id="loadText" fill="#fffdfd" layoutX="83.0" layoutY="350.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LOAD">
+            <Text fx:id="loadText" fill="#fffdfd" layoutX="83.0" layoutY="350.0" onMouseClicked="#loadGame" strokeType="OUTSIDE" strokeWidth="0.0" text="LOAD">
                <font>
                   <Font name="Press Start 2P Regular" size="22.0" />
                </font>
