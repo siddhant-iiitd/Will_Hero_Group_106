@@ -50,7 +50,7 @@
             <Image url="@images/title.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="newGameButton" fitHeight="120.0" fitWidth="139.0" layoutX="312.0" layoutY="315.0" onMouseClicked="#newGame" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="newGameButton" fitHeight="120.0" fitWidth="139.0" layoutX="312.0" layoutY="286.0" onMouseClicked="#newGame" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/play-xxl.png" />
          </image>
@@ -67,7 +67,7 @@
             <Image url="@assets/Tree4.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="loadGameButton" fitHeight="53.0" fitWidth="58.0" layoutX="229.0" layoutY="471.0" onMouseClicked="#openLoadGame" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="loadGameButton" fitHeight="53.0" fitWidth="58.0" layoutX="216.0" layoutY="471.0" onMouseClicked="#openLoadGame" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/save.png" />
          </image>
@@ -135,5 +135,10 @@
             </ImageView>
          </children>
       </AnchorPane>
+      <ImageView fx:id="endlessButton" fitHeight="63.0" fitWidth="65.0" layoutX="329.0" layoutY="466.0" onMouseClicked="#newEndlessGame" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/loop.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
