@@ -9,7 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 public class Game{
@@ -33,6 +33,12 @@ public class Game{
     }
 
     public void loseGame(){
+        try {
+            serialise();
+        }
+        catch (IOException e) {
+            System.out.println("IO Exception");
+        }
         animationTimer.stop();
         if (currentState.hasRevived) {
             gameController.openLosePane();
@@ -107,6 +113,8 @@ public class Game{
 //        winGame();
     }
 
+
+
     public void pauseGame(){
         animationTimer.stop();
         currentState.disableGamePane();
@@ -123,6 +131,34 @@ public class Game{
                 currentState.updateState(now);
             }
         };
+    }
+
+    public void serialise() throws IOException{
+        ObjectOutputStream out = null;
+        try {
+            out = new ObjectOutputStream(new FileOutputStream("gamestate.txt"));
+            out.writeObject(currentState);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        finally {
+            out.close();
+        }
+    }
+
+    public GameState deserialise() throws IOException, ClassNotFoundException {
+        ObjectInputStream in = null;
+        GameState state = null;
+        try {
+            in = new ObjectInputStream(new FileInputStream("gamestate.txt"));
+            state = (GameState) in.readObject();
+        }
+        finally {
+            in.close();
+        }
+        return state;
     }
 
 

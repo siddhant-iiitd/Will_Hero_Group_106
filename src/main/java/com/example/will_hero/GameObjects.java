@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 public abstract class GameObjects implements Serializable {
     static final long serialVersionUID = 7493L;
-    protected Node node;
+    protected transient Node node;
     protected Location location;
     protected final double WIDTH;
     protected final double HEIGHT;

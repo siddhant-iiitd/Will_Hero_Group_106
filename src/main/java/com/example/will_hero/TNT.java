@@ -32,8 +32,6 @@ public class TNT extends GameObjects{
     public static TNT addTnt(){
         ImageView tntNode = GameState.imageViewLoader(path);
         TNT tnt1= new TNT(tntNode);
-        System.out.println("Inside addTnt");
-
         return tnt1;
     }
 }
