@@ -36,6 +36,8 @@ public class GameState implements Serializable {
     protected boolean hasWon;
     private int lastAdd = 0;
     private int heroStart;
+    protected boolean specialAbility = false;
+    protected long abilityActivated;
 
     private long lastClicked = 0;
     public double toMoveFrameX = 0;
@@ -64,6 +66,7 @@ public class GameState implements Serializable {
     public void addCoins(int c){
         coins+=c;
     }
+
     public void addALevel(){
         Island island = addIsland();
         Bounds islandBounds = getBoundswrtPane(island.getPlatformNode());
@@ -192,22 +195,20 @@ public class GameState implements Serializable {
         }
 
 
-        checkCollisionWithChests();
-            //chest node ki image change karni hai to open chest
-            //ImageView openChestNode = GameState.imageViewLoader("/com/example/will_hero/assets/ChestOpen.png");
-//            Image image = new Image("/com/example/will_hero/assets/ChestOpen.png");
-//
-//
-//            openChestNode.setImage(image);
+
+        checkCollisionWithChests(now);
+
+        if (specialAbility) {
+            if ( now - abilityActivated >= 10000000000L) {
+                specialAbility = false;
+                hero.node.setScaleX(1);
+                hero.node.setScaleY(1);
+            }
+        }
 
         if(checkCollisionWithTNT()){
             System.out.println("Hero is killed by TNT Explosion");
             hasEnded = true;
-            // change in pic
-            // fade transition
-            // Wait for 2 sec--> check if hero is in radius--> if yes, hero dies.
-            //hero.getNode().setVisible(false);
-            //visibility of the hero is set to false on collision w TNTs.
         }
 
         checkCollisionWithEnemies();
@@ -261,6 +262,8 @@ public class GameState implements Serializable {
             }
         }
     }
+
+
 
     public void updateHero(){
         if (hero.node.getLayoutY() > 500) {
@@ -412,21 +415,17 @@ public class GameState implements Serializable {
     }
 
     //checking if hero has opened any of the chests
-    private boolean checkCollisionWithChests(){
+    private boolean checkCollisionWithChests(long now){
         for(Chests k: chests){
             if(k.isColliding(hero)){
                 k.setOpened();
-
                 ImageView chestNode = (ImageView) k.getNode();
-                //Image image = new Image("/com/example/will_hero/assets/ChestOpen.png");
-                //Image image = new Image("src/main/resources/com/example/will_hero/assets/ChestOpen.png");
                 k.open(this);
                 chestNode.setImage(Chests.openChest.getImage());
-                //GameState.coins=GameState.coins +10;
-                //chestNode.getImage()
-
+                if (k instanceof SpecialChest) {
+                    abilityActivated = now;
+                }
                 return true;
-
             }
         }
         return false;

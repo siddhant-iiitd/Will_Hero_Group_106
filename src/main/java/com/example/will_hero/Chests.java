@@ -70,11 +70,15 @@ public abstract class Chests extends GameObjects{
         ImageView chestnode = GameState.imageViewLoader(path);
         Random rand = new Random();
         Chests chest;
-        if (rand.nextBoolean()) {
+        int i = rand.nextInt(3);
+        if (i == 0) {
             chest = new CoinChest(chestnode);
         }
-        else {
+        else if (i == 1){
             chest = new WeaponsChest(chestnode);
+        }
+        else {
+            chest = new SpecialChest(chestnode);
         }
         return chest;
     }
@@ -107,5 +111,20 @@ class WeaponsChest extends Chests {
         //returns either a shuriken or a knife
         Weapons w = currState.getHero().getHelmet().getWeapon();
         currState.getHero().setCurrWeapon(w);
+    }
+}
+
+class SpecialChest extends Chests{
+    static final long serialVersionUID = 4832329L;
+
+    public SpecialChest(Node node) {
+        super(node);
+    }
+
+    @Override
+    public void open(GameState currState) {
+        currState.specialAbility = true;
+        currState.getHero().node.setScaleX(4);
+        currState.getHero().node.setScaleY(4);
     }
 }

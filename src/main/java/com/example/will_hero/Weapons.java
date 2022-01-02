@@ -9,6 +9,7 @@ public abstract class Weapons extends GameObjects{
     protected double speedX = 10;
     public double toMoveX = 500;
     public boolean killedSomeone = false;
+    public int level = 0;
 
     public Weapons(Node node) {
         super(node);
@@ -22,7 +23,6 @@ public abstract class Weapons extends GameObjects{
         return;
     }
 
-
     public Boolean intersectsWithEnemy(Enemies e){
         Bounds enemyBounds = GameState.getBoundswrtPane(e.getNode());
         Bounds weaponBounds = GameState.getBoundswrtPane(this.getNode());
@@ -35,7 +35,6 @@ public abstract class Weapons extends GameObjects{
     public Boolean isColliding(Hero hero) {
         return null;
     }
-
 }
 
 class Shuriken extends Weapons{
@@ -47,7 +46,6 @@ class Shuriken extends Weapons{
         node.setId("shuriken");
         this.speedX = 15;
     }
-
 }
 
 class Knife extends Weapons{
