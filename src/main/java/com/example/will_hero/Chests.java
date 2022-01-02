@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 import java.util.Random;
 
 public abstract class Chests extends GameObjects{
+    static final long serialVersionUID = 12313L;
 
     public static final String path = "AssetFXMLFiles/Chest.fxml";
     public transient static ImageView openChest= GameState.imageViewLoader("AssetFXMLFiles/ChestOpen.fxml");
@@ -81,6 +82,7 @@ public abstract class Chests extends GameObjects{
 }
 
 class CoinChest extends Chests {
+    static final long serialVersionUID = 801237L;
 
     public CoinChest(Node node) {
         super(node);
@@ -94,6 +96,8 @@ class CoinChest extends Chests {
 
 }
 class WeaponsChest extends Chests {
+    static final long serialVersionUID = 37210462L;
+
     public WeaponsChest(Node node) {
         super(node);
     }

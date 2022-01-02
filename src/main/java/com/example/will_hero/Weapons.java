@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 
 public abstract class Weapons extends GameObjects{
+    static final long serialVersionUID = 31L;
     protected double speedX = 10;
     public double toMoveX = 500;
     public boolean killedSomeone = false;
@@ -38,6 +39,7 @@ public abstract class Weapons extends GameObjects{
 }
 
 class Shuriken extends Weapons{
+    static final long serialVersionUID = 90L;
     public static final String path = "AssetFXMLFiles/Shuriken.fxml";
 
     public Shuriken() {
@@ -48,6 +50,7 @@ class Shuriken extends Weapons{
 }
 
 class Knife extends Weapons{
+    static final long serialVersionUID = 12L;
     public static final String path = "AssetFXMLFiles/Knife.fxml";
 
     public Knife() {

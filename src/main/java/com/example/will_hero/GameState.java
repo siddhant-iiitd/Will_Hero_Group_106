@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class GameState implements Serializable {
+    static final long serialVersionUID = 3829L;
+
     private transient final Game game;
     Random rand = new Random();
 

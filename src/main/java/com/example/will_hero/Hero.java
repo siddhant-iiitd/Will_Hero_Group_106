@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Hero extends GameObjects{
+    static final long serialVersionUID = 435L;
     private transient final Game game;
     public static final String path = "AssetFXMLFiles/Hero.fxml";
     public static final int forwardX = 120;
@@ -112,6 +113,7 @@ public class Hero extends GameObjects{
 }
 
 class Helmet implements Serializable {
+    static final long serialVersionUID = 759203L;
     private ArrayList<Weapons> WEAPONS_OPTIONS;
     private Weapons currWeapon = null;
 

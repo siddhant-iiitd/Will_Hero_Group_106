@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import java.io.Serializable;
 
 public abstract class GameObjects implements Serializable {
+    static final long serialVersionUID = 7493L;
     protected Node node;
     protected Location location;
     protected final double WIDTH;

@@ -4,6 +4,7 @@ import javafx.geometry.Bounds;
 import javafx.scene.Node;
 
 public abstract class Enemies extends GameObjects {
+    static final long serialVersionUID = 908321L;
     protected double speedX = 5;
     protected double speedY = 0;
     protected double toMoveX = 0;
@@ -101,6 +102,7 @@ public abstract class Enemies extends GameObjects {
 }
 
 class RedOrc extends Enemies {
+    static final long serialVersionUID = 12L;
     public static final String path = "AssetFXMLFiles/RedOrc.fxml";
 
     public RedOrc(Node node) {
@@ -114,6 +116,7 @@ class RedOrc extends Enemies {
 }
 
 class GreenOrc extends Enemies {
+    static final long serialVersionUID = 37012L;
     public static final String path = "AssetFXMLFiles/GreenOrc.fxml";
 
 
@@ -128,6 +131,7 @@ class GreenOrc extends Enemies {
 }
 
 class Boss extends Enemies {
+    static final long serialVersionUID = 732191L;
     private int hits = 0;
     public static final String path = "AssetFXMLFiles/Boss.fxml";
 

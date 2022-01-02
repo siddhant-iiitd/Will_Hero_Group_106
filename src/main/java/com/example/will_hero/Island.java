@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import java.util.Random;
 
 public class Island extends GameObjects {
+    static final long serialVersionUID = 532L;
     public static String[] paths = {
             "AssetFXMLFiles/Island1.fxml",
             "AssetFXMLFiles/Island2.fxml",

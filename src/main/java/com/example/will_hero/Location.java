@@ -3,7 +3,7 @@ package com.example.will_hero;
 import java.io.Serializable;
 
 public class Location implements Serializable {
-    private static final long serialVersionUID = 1;
+    private static final long serialVersionUID = 1L;
 
     private Double x;
     private Double y;

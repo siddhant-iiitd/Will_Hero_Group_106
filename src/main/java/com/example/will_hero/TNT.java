@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 
 public class TNT extends GameObjects{
+    static final long serialVersionUID = 421L;
     public static final String path = "AssetFXMLFiles/TNT.fxml";
 
     public transient static final ImageView explodingTNT= GameState.imageViewLoader("AssetFXMLFiles/Exploding.fxml");
