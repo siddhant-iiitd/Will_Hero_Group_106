@@ -201,8 +201,7 @@ public class GameState implements Serializable {
 
         if(checkCollisionWithTNT()){
             System.out.println("Hero is killed by TNT Explosion");
-
-
+            hasEnded = true;
             // change in pic
             // fade transition
             // Wait for 2 sec--> check if hero is in radius--> if yes, hero dies.
@@ -434,8 +433,9 @@ public class GameState implements Serializable {
         for(TNT t: tnts){
             if(t.isColliding(hero)){
                 ImageView tntNode = (ImageView) t.getNode();
-
                 tntNode.setImage(TNT.explodingTNT.getImage());
+                tntNode.setScaleX(3);
+                tntNode.setScaleY(3);
                 return true;
             }
         }
