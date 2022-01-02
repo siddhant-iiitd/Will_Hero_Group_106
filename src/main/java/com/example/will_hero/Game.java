@@ -10,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.util.Date;
 
 public class Game{
     private GameController gameController;
@@ -141,7 +142,8 @@ public class Game{
         currentState.prepareSerialization();
         ObjectOutputStream out = null;
         try {
-            out = new ObjectOutputStream(new FileOutputStream("gamestate.txt"));
+            Date d = new Date();
+            out = new ObjectOutputStream(new FileOutputStream("gamestate" + d.toString() + ".txt"));
             out.writeObject(currentState);
         }
         catch (Exception e) {
@@ -153,11 +155,11 @@ public class Game{
         }
     }
 
-    public GameState deserialize() throws IOException, ClassNotFoundException {
+    public GameState deserialize(String path) throws IOException, ClassNotFoundException {
         ObjectInputStream in = null;
         GameState state = null;
         try {
-            in = new ObjectInputStream(new FileInputStream("gamestate.txt"));
+            in = new ObjectInputStream(new FileInputStream(path));
             state = (GameState) in.readObject();
         }
         finally {
@@ -166,10 +168,10 @@ public class Game{
         return state;
     }
 
-    public void loadGame(MouseEvent event){
+    public void loadGame(MouseEvent event, String path){
         this.viewScene(event);
         try {
-            currentState = deserialize();
+            currentState = deserialize(path);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {

@@ -15,9 +15,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -32,7 +34,6 @@ public class MainMenuController implements Initializable {
     @FXML private Text loadText;
     @FXML private Text cancelText;
     @FXML private ImageView closeMenuButton;
-    @FXML private ListView games;
 
 
 
@@ -63,7 +64,11 @@ public class MainMenuController implements Initializable {
 
     public void loadGame(MouseEvent event) {
         Game game = new Game();
-        game.loadGame(event);
+        FileChooser fc = new FileChooser();
+        File selectedFile = fc.showOpenDialog(null);
+        if (selectedFile != null) {
+            game.loadGame(event, selectedFile.getPath());
+        }
     }
 
 
