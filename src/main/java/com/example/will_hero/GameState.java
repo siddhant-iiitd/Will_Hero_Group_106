@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class GameState implements Serializable {
-    private final Game game;
+    private transient final Game game;
     Random rand = new Random();
 
     private ArrayList<GameObjects> gameObjects = new ArrayList<>();
@@ -40,10 +40,10 @@ public class GameState implements Serializable {
 
 
     //FXML Objects
-    protected static AnchorPane gamePane;
+    protected transient static AnchorPane gamePane;
     private Hero hero;
-    private Text scoreBoard;
-    private Text coinBoard;
+    private transient Text scoreBoard;
+    private transient Text coinBoard;
 
     public GameState(Game game) {
         this.game = game;

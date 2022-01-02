@@ -15,7 +15,7 @@ public class Island extends GameObjects {
             "AssetFXMLFiles/Island4.fxml",
             "AssetFXMLFiles/Island5.fxml"
     };
-    private Node platformNode;
+    private transient Node platformNode;
 
     public Island(Node node) {
         super(node);

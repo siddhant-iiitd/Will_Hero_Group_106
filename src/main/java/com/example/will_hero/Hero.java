@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Hero extends GameObjects{
-    private final Game game;
+    private transient final Game game;
     public static final String path = "AssetFXMLFiles/Hero.fxml";
     public static final int forwardX = 120;
     private final int jumpY = 100;
@@ -23,13 +23,12 @@ public class Hero extends GameObjects{
 
     private final Helmet helmet;
 
-
-
     public Hero(Node node, Game game) {
         super(node);
         this.game = game;
         helmet = new Helmet();
     }
+
     public Helmet getHelmet(){
         return helmet;
     }

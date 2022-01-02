@@ -9,10 +9,8 @@ import java.util.Random;
 public abstract class Chests extends GameObjects{
 
     public static final String path = "AssetFXMLFiles/Chest.fxml";
-    public static ImageView openChest= GameState.imageViewLoader("AssetFXMLFiles/ChestOpen.fxml");
+    public transient static ImageView openChest= GameState.imageViewLoader("AssetFXMLFiles/ChestOpen.fxml");
     private boolean isOpened = false;
-
-
 
 
     public abstract void open(GameState currState);
@@ -83,26 +81,19 @@ public abstract class Chests extends GameObjects{
 }
 
 class CoinChest extends Chests {
+
     public CoinChest(Node node) {
-
         super(node);
-        System.out.println("Inside public Coinchest(Node node)");
-
-
-
     }
 
     @Override
     public void open(GameState currState) {
         //GameState.coins = GameState.coins +10; //10 coins are gained on opening the CoinChest
         currState.addCoins(10);
-        System.out.println("inside the coin chest");
-
     }
 
 }
 class WeaponsChest extends Chests {
-    private Weapons weapon;
     public WeaponsChest(Node node) {
         super(node);
     }
@@ -110,13 +101,7 @@ class WeaponsChest extends Chests {
     @Override
     public void open(GameState currState) {
         //returns either a shuriken or a knife
-//        Helmet.currWeapon= new Knife();
-
         Weapons w = currState.getHero().getHelmet().getWeapon();
         currState.getHero().setCurrWeapon(w);
-
-
-
-
     }
 }

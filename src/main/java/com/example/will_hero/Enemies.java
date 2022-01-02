@@ -10,11 +10,11 @@ public abstract class Enemies extends GameObjects {
     private int delayY = 0;
     protected long lastLanded = Long.MAX_VALUE;
     public boolean onIsland = false;
+    public boolean isKilled = false;
+
     protected Enemies(Node node) {
         super(node);
     }
-    public boolean isKilled = false;
-
 
     public String getPath(){
         return this.getPath();
