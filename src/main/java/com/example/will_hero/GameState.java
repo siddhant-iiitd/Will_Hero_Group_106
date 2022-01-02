@@ -28,7 +28,7 @@ public class GameState implements Serializable {
     private ArrayList<TNT> tnts = new ArrayList<>();
     private ArrayList<Chests> chests = new ArrayList<>();
     private ArrayList<Weapons> weapons = new ArrayList<>();
-    private int steps = 0;
+    protected int steps = 0;
     private int coins = 0; // making this static cuz it also needs to be used in Chests.java
     protected boolean hasEnded;
     protected boolean reachedEnd;
