@@ -65,6 +65,7 @@ public class MainMenuController implements Initializable {
     public void loadGame(MouseEvent event) {
         Game game = new Game();
         FileChooser fc = new FileChooser();
+        fc.setInitialDirectory(new File("savedGames"));
         File selectedFile = fc.showOpenDialog(null);
         if (selectedFile != null) {
             game.loadGame(event, selectedFile.getPath());

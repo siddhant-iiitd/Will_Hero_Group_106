@@ -143,7 +143,7 @@ public class Game{
         ObjectOutputStream out = null;
         try {
             Date d = new Date();
-            out = new ObjectOutputStream(new FileOutputStream("gamestate" + currentState.steps + ".txt"));
+            out = new ObjectOutputStream(new FileOutputStream("savedGames/gamestate" + currentState.steps + ".txt"));
             out.writeObject(currentState);
         }
         catch (Exception e) {
