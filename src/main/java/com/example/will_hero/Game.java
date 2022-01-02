@@ -176,6 +176,7 @@ public class Game{
         this.gameController.setupFXMLNodes(this, currentState);
         currentState.setGame(this);
         currentState.afterDeserialization();
+        this.hero = currentState.getHero();
         setAnimationTimer();
         animationTimer.start();
     }
