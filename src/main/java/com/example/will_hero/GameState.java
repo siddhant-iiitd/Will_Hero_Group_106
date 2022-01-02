@@ -276,6 +276,13 @@ public class GameState implements Serializable {
                 coins += 5;
                 toRemove.add(e);
             }
+            if (e instanceof Boss) {
+                Boss boss = (Boss) e;
+                if (boss.isKilled) {
+                    hasWon = true;
+                    hasEnded = true;
+                }
+            }
         }
         for (Enemies e: toRemove){
             removeObject(e);
@@ -304,10 +311,6 @@ public class GameState implements Serializable {
                     if (e instanceof Boss) {
                         Boss boss = (Boss) e;
                         boss.hit();
-                        if (boss.isKilled) {
-                            hasWon = true;
-                            hasEnded = true;
-                        }
                     }
                     else{
                         e.killed();
@@ -329,6 +332,7 @@ public class GameState implements Serializable {
         for (Enemies e : enemies){
             if (e.isColliding(hero)){
                 hasEnded = true;
+
             }
         }
     }
@@ -498,15 +502,6 @@ public class GameState implements Serializable {
         gameObjects.remove(object);
     }
 
-    //function for moving all objects in the game backwards by x in time t
-    public void moveSceneBackwards(double x, double t){
-        for (GameObjects object : gameObjects) {
-            Node node = object.getNode();
-            TranslateTransition transition = new TranslateTransition(Duration.millis(t), node);
-            transition.setByX(-x);
-            transition.play();
-        }
-    }
 
 
     //function for initial setup of some required static gui component nodes
