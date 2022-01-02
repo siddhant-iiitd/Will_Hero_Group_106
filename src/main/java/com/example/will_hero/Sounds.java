@@ -8,6 +8,7 @@ public class Sounds {
     private static final String SWOOSH = "sounds/swoosh_sound.wav";
     private static final String DEAD = "sounds/dead.mp3";
     private static final String COIN = "sounds/coin.wav";
+    private static final String OVER = "sounds/gameover.mp3";
 
     private static void play(String file) {
         try {
@@ -33,5 +34,8 @@ public class Sounds {
     }
     public static void coin(){
         play(COIN);
+    }
+    public static void over(){
+        play(OVER);
     }
 }

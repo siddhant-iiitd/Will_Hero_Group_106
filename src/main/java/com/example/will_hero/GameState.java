@@ -256,6 +256,7 @@ public class GameState implements Serializable {
             }
             else {
                 Sounds.dead();
+                Sounds.over();
                 endGame();
             }
         }
